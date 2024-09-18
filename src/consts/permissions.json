@@ -1,0 +1,161 @@
+{
+    "getUsers": [
+        "A",
+        "E",
+        "C"
+    ],
+    "crearPersonaje": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getMapByID": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getInventarioByID": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getMapas": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getCriaturas": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getItems": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getHechizos": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getHabilidades": [
+        "A",
+        "E",
+        "C"
+    ],
+    "loginPersonaje": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getPersonajeByID": [
+        "A",
+        "E",
+        "C"
+    ],
+    "addUsers": [
+        "A",
+        "E"
+    ],
+    "updateUsers": [
+        "A",
+        "E",
+        "C"
+    ],
+    "removeUsers": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getUser": [
+        "A",
+        "E",
+        "C"
+    ],
+    "updateStatus": [
+        "A",
+        "E",
+        "C"
+    ],
+    "updateRole": [
+        "A"
+    ],
+    "getRooms": [
+        "A",
+        "E",
+        "C"
+    ],
+    "addRooms": [
+        "A"
+    ],
+    "updateRooms": [
+        "A"
+    ],
+    "removeRooms": [
+        "A"
+    ],
+    "getByIDRooms": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getOptionsByIDRooms": [
+        "A",
+        "E",
+        "C"
+    ],
+    "getNarrative": [
+        "A",
+        "E"
+    ],
+    "addNarrative": [
+        "A"
+    ],
+    "updateNarrative": [
+        "A"
+    ],
+    "removeNarrative": [
+        "A"
+    ],
+    "getByIDNarrative": [
+        "A"
+    ],
+    "addGallery": [
+        "A"
+    ],
+    "removeGallery": [
+        "A"
+    ],
+    "getGames": [
+        "A",
+        "E"
+    ],
+    "addGames": [
+        "A",
+        "E"
+    ],
+    "updateGames": [
+        "A",
+        "E"
+    ],
+    "removeGames": [
+        "A"
+    ],
+    "getGamePlayer": [
+        "A",
+        "E"
+    ],
+    "addGamePlayer": [
+        "A",
+        "E"
+    ],
+    "removeGamePlayers": [
+        "A",
+        "E"
+    ],
+    "reportGames": [
+        "A",
+        "E"
+    ]
+}

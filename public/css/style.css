@@ -115,7 +115,7 @@ h1 {
   font-size: 36px; }
 
 h2 {
-  line-height: 36px;
+  line-height: 10px;
   font-size: 24px; }
 
 h3 {
@@ -143,8 +143,8 @@ h6 {
   font-size: 36px; }
 
 .box {
-  border-radius: 4px;
-  padding: 10px; }
+  border-radius: 10px;
+  padding: 5px; }
 
 html body .dl {
   display: inline-block; }
@@ -168,7 +168,7 @@ html body blockquote {
   clear: both; }
 
 ol li {
-  margin: 5px 0; }
+  margin: 0px 0; }
 
 /*******************
 Paddings
@@ -4399,7 +4399,7 @@ table.dataTable thead .sorting:after {
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  *cursor: hand;
+  cursor: hand;
   color: #67757c;
   border: 1px solid #ddd; }
 
@@ -4810,45 +4810,49 @@ File: scss
   margin: 0px;
   padding: 0px; }
   .chat-list li {
-    list-style: none;
-    margin-top: 30px; }
+    margin-top: 0px; }
     .chat-list li .chat-img {
       display: inline-block;
       width: 45px;
       vertical-align: top; }
       .chat-list li .chat-img img {
-        width: 45px;
+        width: 15px;
         border-radius: 100%; }
     .chat-list li .chat-content {
-      width: calc(100% - 140px);
-      display: inline-block;
-      padding-left: 15px; }
-      .chat-list li .chat-content h5 {
+      width: 100%;
+      
+      padding-left: 0px; }
+      .chat-list li .chat-content h5 { /* esta es el nombre del user en el chat*/
+        font-size: 10px;
         color: #99abb4; }
-      .chat-list li .chat-content .box {
+      .chat-list li .chat-content .box { /* esta es el mensaje recibido del chat*/
+        font-size: 15px;
+        font-family: 'Times New Roman', Times, serif;
+        font-style: oblique;
         display: inline-block;
-        margin-bottom: 10px;
-        color: #263238; }
-    .chat-list li .chat-time {
+        margin-bottom: 0px;
+        color: #000000; }
+    .chat-list li .chat-time { /* esta es la hora en el chat*/
       display: inline-block;
-      text-align: right;
+      text-align: left;
       width: 80px;
-      font-size: 13px;
+      font-size: 10px;
       color: #99abb4; }
     .chat-list li.odd .chat-content {
-      text-align: right;
+      text-align: left;
       width: calc(100% - 90px); }
     .chat-list li.odd .box {
       clear: both; }
     .chat-list li.odd + .odd {
       margin-top: 0px; }
     .chat-list li.reverse {
-      text-align: right; }
-      .chat-list li.reverse .chat-time {
+      text-align: left; }
+      .chat-list li.reverse .chat-time {        
         text-align: left; }
-      .chat-list li.reverse .chat-content {
+      .chat-list li.reverse .chat-content { /* esta es el mensaje enviado del chat*/
+        font-size: 10px;
         padding-left: 0px;
-        padding-right: 15px; }
+        padding-right: 0px; }
 
 /*******************/
 /*Chat widget*/

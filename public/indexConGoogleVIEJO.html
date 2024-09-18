@@ -13,14 +13,13 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>JRW</title>
+    <title>Sala de Chat</title>
     <!-- Bootstrap Core CSS -->
     <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- page css -->
     <link href="css/pages/login-register-lock.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/chat.css" rel="stylesheet">
 
     <!-- You can change the theme colors from here -->
     <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
@@ -45,18 +44,12 @@
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
-    <section id="section">
-        <div class="cabeceraMenu">
-
-        </div>
-        <div class="divPrincipal"
-            style="background-image:url(../assets/images/background/user-info.jpg);">
-
-            <!-- Aca empieza el box de Login -->
-            <div class="loginCaja card" id="loginform">
+    <section id="wrapper">
+        <div class="login-register" style="background-image:url(../assets/images/background/login-register.jpg);">
+            <div class="login-box card">
                 <div class="card-body">
-                    <form class="form-horizontal form-material" action="chat.html">
-                        <h3 class="box-title m-b-20 text-center">Ingresar a JRW</h3>
+                    <form class="form-horizontal form-material" id="loginform" action="chat.html">
+                        <h3 class="box-title m-b-20">Ingresar al Chat</h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
                                 <input id="nombreInput" class="form-control" type="text" required=""
@@ -65,74 +58,31 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-
-                                <input id="password" class="form-control" type="text" required="" placeholder="Password"
-                                    name="password">
+                                <input id="salaInput" class="form-control" type="text" required=""
+                                    placeholder="Sala de chat" name="sala">
                             </div>
 
                         </div>
-
 
                         <div class="form-group text-center">
                             <div class="col-xs-12 p-b-20">
                                 <button id="ingresarChat" class="btn btn-block btn-lg btn-info btn-rounded"
-                                    type="submit">Entrar</button>
-
+                                    type="submit">Ingresar al chat</button>
+                                  
                             </div>
+                            <!-- Google boton -->
 
-                            <!-- </div>
+                            <div id="g_id_onload"
+                                data-client_id="642823068191-t9q5p7cl3h4q9adj2e10qghkqfglqnpl.apps.googleusercontent.com"
+                                data-callback="handleCredentialResponse" data-auto_prompt="false">
+                            </div>
+                            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline"
+                            data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="center">
+                        </div>
+                    </div>
                     <div class="form-group text-center" ><img src="assets/images/users/1.jpg" alt="user" width="150" height="150" id="imagenAvatar"/></div>
-                    <div class="row mt-5"> -->
-                        </div>
-
-
-                    </form>
-
-                </div>
-                </form>
-            </div>
-            <!-- Aca termina el box de Login -->
-            <!-- ------------------------------------ -->
-            <!-- aca empieza el BOX de personaje -->
-            <div class="personajesCaja card esconder" id="selectPersonaje" style="visibility: hidden;">
-
-                <div class="personajesCard" id="personajeForm">
-                    <form class="form-horizontal form-material" action="chat.html">
-                        <h3 class="box-title m-b-20 text-center">Elije tu Personaje</h3>
-                        <div class="form-group ">
-                            <div class="divPj">
-                                <div class="pj">
-                                    <button class="botonPj" id="botonPj1">
-                                        <img src="assets/images/users/personajevacio.jpg" alt="user" width="150" height="150"
-                                            id="imagenAvatar" />
-                                    </button>
-                                    <p id="p1">Crear personaje</p>
-                                </div>
-                                <div class="pj">
-                                    <button class="botonPj" id="botonPj2">
-                                        <img src="assets/images/users/personajevacio.jpg" alt="user" width="150" height="150"
-                                            id="imagenAvatar" />
-                                    </button>
-                                    <p id="p2">Crear personaje</p>
-                                </div>
-                                <div class="pj">
-                                    <button class="botonPj" id="botonPj3">
-                                        <img src="assets/images/users/personajevacio.jpg" alt="user" width="150" height="150"
-                                            id="imagenAvatar" />
-                                    </button>
-                                    <p id="p3">Crear personaje</p>
-                                </div>
-
-                            </div>
-                            <!-- <div class="form-group text-center">
-                                <div class="col-xs-12 p-b-20">
-                                    <button id="ingresarChat" class="btn btn-block btn-lg btn-info btn-rounded elegir"
-                                        type="submit">Elegir</button>
-                                </div>
-    
-                            </div> -->
-                        </div>
-
+                    <div class="row mt-5">
+                    </div>
 
 
                     </form>
@@ -141,9 +91,6 @@
                 </form>
 
             </div>
-            <!-- aca termina el BOX de personaje -->
-            <!-- ------------------------------------ -->
-        </div>
         </div>
         </div>
     </section>
@@ -151,14 +98,11 @@
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="../assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-
-
     <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!--Custom JavaScript -->
@@ -170,9 +114,55 @@
             $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
-    <script src="js/index.js"></script>
+
+    <script>
+        let imagenAvatar = document.querySelector("#imagenAvatar")
+        const ingresarChat = document.querySelector("#ingresarChat")
+        const nombre = document.querySelector("#nombreInput")
+        const sala = document.querySelector("#salaInput")
+        let img = '../assets/images/users/1.jpg';
+
+        ingresarChat.addEventListener('click', function (e) {
+            e.preventDefault();
+            console.log({ nombre: nombre.value, sala: sala.value, img })
+            if (nombre.value.trim() === ""|| sala.value.trim() === ""|| !img) {
+                console.log("falta nombre, sala o imagen")
+            } else {
+                window.location = `chat.html?nombre=${nombre.value}&sala=${sala.value}&img=${img}`
+            }
+
+        })
+        function handleCredentialResponse(response) {
+
+            function decodeJwtResponse(token) {
+                var base64Url = token.split('.')[1];
+                var base64 = base64Url.replace('-', '+').replace('_', '/');
+                return JSON.parse(window.atob(base64));
+            };
+            const responsePayload = decodeJwtResponse(response.credential);
 
 
+            // console.log("ID: " + responsePayload.sub);
+            // console.log('Full Name: ' + responsePayload.name);
+            // console.log('Given Name: ' + responsePayload.given_name);
+            // console.log('Family Name: ' + responsePayload.family_name);
+            // console.log("Image URL: " + responsePayload.picture);
+            // console.log("Email: " + responsePayload.email);
+
+            nombre.value = responsePayload.name;
+            img = responsePayload.picture
+            imagenAvatar.src = responsePayload.picture
+            if (sala.value.trim() !== "") {
+                window.location = `chat.html?nombre=${responsePayload.name}&sala=${sala.value}&img=${responsePayload.picture}`
+            }
+
+
+        }
+
+
+    </script>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
 
 </body>
 

@@ -1,73 +1,98 @@
 //lado SERVIDOR
 
 const { io } = require('../server');
-const {Usuarios} = require('../classes/usuarios')
-const {crearMensaje} = require('../utilidades/utilidades')
+const { Usuarios } = require('../classes/usuarios')
+const { crearMensaje } = require('../utilidades/utilidades');
+
 
 const usuarios = new Usuarios();
 
+usuarios.cargarMundo()
+
+
 io.on('connection', (client) => {
 
+    client.on('obtenerPersonaje', async (id, callback) => {
+        let pj
+        let barras
+        pj = usuarios.obtener("personajes", id)
+        barras = usuarios.obtener("barras", id)
+        inventario = usuarios.obtener("inventario", id)
+        
+        return callback({pj, barras, inventario})
+    })
+    client.on('obtenerInterface', async (sala, callback) => {
+        const items = usuarios.obtenerTabla("items")
+        const maps = usuarios.obtenerTabla("maps")
+        const description = usuarios.obtenerTabla("description")
+        const personasMapa = usuarios.getPersonasPorSala(sala)
+        return callback({ items, maps, description, personasMapa})
+
+    })
+
     client.on('entrarChat', (data, callback) => {
-       if (!data.nombre || !data.sala){
-        return callback({
-            error: true,
-            msg: 'El nombre y sala son necesarios'
-        })
-       }
-       
 
+        if (!data.token || !data.nombre || !data.sala) {
+            return callback({
+                error: true,
+                msg: 'no tiene token, o nombre o sala'
+            })
+        }
 
-       client.join(data.sala);
-       
-       usuarios.agregarPersona(client.id, data.nombre, data.sala, data.img);
+        client.join(data.sala);
 
-       client.broadcast.to(data.sala).emit('listaPersona', usuarios.getPersonasPorSala(data.sala));
-       client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador',`${data.nombre} se unio.`))
-       callback(usuarios.getPersonasPorSala(data.sala));
+        usuarios.agregarPersona(client.id, data.nombre, data.sala, data.img);
+
+        client.broadcast.to(data.sala).emit('listaPersona', usuarios.getPersonasPorSala(data.sala));
+        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador', `${data.nombre} se unio.`))
+        callback(usuarios.getPersonasPorSala(data.sala));
 
 
     })
 
-    client.on('busqueda', (data) =>{
+    client.on('busqueda', (data) => {
         let personasEnSala = usuarios.getPersonasPorSala(data.sala)
-        let personasFiltradas= personasEnSala.filter( persona => {
-            let contiene= persona.nombre.includes(data.filtro);
-          if(contiene){
-            return persona;
-          }  
+        let personasFiltradas = personasEnSala.filter(persona => {
+            let contiene = persona.nombre.includes(data.filtro);
+            if (contiene) {
+                return persona;
+            }
         })
 
-        client.emit('listaPersona', personasFiltradas )
-    } );
+        client.emit('listaPersona', personasFiltradas)
+    });
 
-    client.on('crearMensaje', (data, callback) =>{
+    client.on('crearMensaje', (data, callback) => {
 
-        let persona= usuarios.getPersona(client.id);
+        let persona = usuarios.getPersona(client.id);
 
-        let mensaje= crearMensaje(persona.nombre, data.mensaje);
+        let mensaje = crearMensaje(persona.nombre, data.mensaje);
         client.broadcast.to(persona.sala).emit('crearMensaje', mensaje)
-                
+
         callback(mensaje);
 
-    } )
-    
+    })
+
     client.on('mensajePrivado', (data, callback) => {
 
         let persona = usuarios.getPersona(client.id);
-        
+
         client.broadcast.to(data.para).emit('mensajePrivado', crearMensaje(persona.nombre, data.mensaje))
-        let mensaje= crearMensaje(persona.nombre, data.mensaje);
-        
+        let mensaje = crearMensaje(persona.nombre, data.mensaje);
+
         callback(mensaje)
     })
 
-    
+
 
     client.on('disconnect', () => {
-        let personaBorrada= usuarios.borrarPersona(client.id)
-        client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador',`${personaBorrada.nombre} salio.`))
-        client.broadcast.to(personaBorrada.sala).emit('listaPersona', usuarios.getPersonasPorSala(personaBorrada.sala));
+        let personaBorrada = usuarios.borrarPersona(client.id)
+        if (personaBorrada) {
+            client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salio.`))
+            client.broadcast.to(personaBorrada.sala).emit('listaPersona', usuarios.getPersonasPorSala(personaBorrada.sala));
+        }
     })
-    
+
 });
+
+

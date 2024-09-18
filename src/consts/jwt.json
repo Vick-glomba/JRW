@@ -1,0 +1,5 @@
+{
+	"algorithm": "HS256",
+	"expiration_time": "12h",
+	"authorized_endpoints": ["favicon", "login", "register", "Chromium", "tablas"]
+}

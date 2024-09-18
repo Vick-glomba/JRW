@@ -1,0 +1,8 @@
+{
+    "encryption_key": "XWy3afdD3T",
+    "encryption_salt": "uti90EY6Zn",
+    "hash_salt": "e158PimrrB",
+    "jwt_sign_key": "TU5wqOTZ2P",
+    "jwt_encryption_key": "NnHXd5Yvsq",
+    "jwt_encryption_salt": "uDlpfunzfP"
+}

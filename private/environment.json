@@ -1,0 +1,7 @@
+{
+    "host": "ep-shiny-tooth-a5hkm78n.us-east-2.aws.neon.tech",
+    "port": "5432",
+    "user": "neondb_owner",
+    "password": "JpT3uU9sDRHo",
+    "database": "neondb"
+    }

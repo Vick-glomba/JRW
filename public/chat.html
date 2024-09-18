@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
     <!-- Page CSS -->
     <link href="css/pages/chat-app-page.css" rel="stylesheet">
@@ -20,137 +20,180 @@
     <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
 </head>
 
-<body class="fix-header single-column card-no-border fix-sidebar">
+<body class="fix-header single-column card-no-border fix-sidebar" >
 
-    <!-- ============================================================== -->
-    <!-- Main wrapper -->
-    <!-- ============================================================== -->
-    <div id="main-wrapper">
+    <div id="">
 
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
-        <div class="page-wrapper">
+        <!-- div de Cabecera-->
+        <div class="divCabecera">
+            <div  class="divuser" id="divUser"> 
+                <img src="/assets/images/users/personajevacio.jpg" alt="" width="50px" height="50px" id="imgPJ">
 
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
+                <div>
+                    <p id="nombrePJ">Personaje</p>
+                    <p>Lvl <span id="nivelPJ">1</span></p>
+                    <p>Exp: <span id="exp">1111</span>/<span id="expTotal">5555</span></p>
 
-
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row animated fadeIn">
-                    <div class="col-12">
-                        <div class="card m-b-0">
-                            <!-- .chat-row -->
-                            <div class="chat-main-box">
-                                <!-- .chat-left-panel -->
-                                <div class="chat-left-aside">
-                                    <div class="open-panel"><i class="ti-angle-right"></i></div>
-                                    <div class="chat-left-inner">
-                                        <div class="form-material">
-                                            <input id="buscar" class="form-control p-20" type="text" placeholder="Buscar Contacto">
-                                        </div>
-                                        <ul class="chatonline style-none" id="divUsuarios">
-                                        
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- .chat-left-panel -->
-                                <!-- .chat-right-panel -->
-                                <div class="chat-right-aside">
-                                    <div class="chat-main-header">
-                                        <div id="nombreSala" class="p-20 b-b"> </div>
-                                    </div>
-
-                                    <div class="chat-rbox">
-                                        <ul class="chat-list p-20" id="divChatbox">
-                                            <!--chat Row -->
-                                            <!-- <li>
-                                                <div class="chat-img"><img src="assets/images/users/1.jpg" alt="user" /></div>
-                                                <div class="chat-content">
-                                                    <h5>James Anderson</h5>
-                                                    <div class="box bg-light-info">Lorem Ipsum is simply dummy text of the printing & type setting industry.</div>
-                                                </div>
-                                                <div class="chat-time">10:56 am</div>
-                                            </li> -->
-                                          
-                                            <!--chat Row -->
-                                            <!-- <li class="reverse">
-                                                <div class="chat-content">
-                                                    <h5>Steave Doe</h5>
-                                                    <div class="box bg-light-inverse">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-img"><img src="assets/images/users/5.jpg" alt="user" /></div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li> -->
-                                            <!--chat Row -->
-                                            
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="card-body b-t">
-
-
-                                      <form id="formEnviar">
-                                        <div class="card-body b-t">
-                                            <div class="row">
-                                                <div class="col-8">
-                                                    <input autocomplete="off" id="para" placeholder="Para:" class="form-control b-0">
-                                                </div>
-                                                    <div class="col-4 text-left">
-                                                        <button id="btnBorrar" type="reset" class="btn btn-danger btn-circle ">X</button>
-                                                    </div>
-                                            </div>                                           
-                                        </div>
-                                          <div class="card-body b-t">
-                                              
-                                        <div class="row">
-                                            <div class="col-8">
-                                                <input autocomplete="off" id="txtMensaje" placeholder="Escribe tu mensaje aquí" class="form-control b-0" autofocus>
-                                            </div>
-                                            <div class="col-4 text-left">
-                                                <button type="submit" class="btn btn-info btn-circle btn-lg"><i class="fa fa-paper-plane-o"></i> </button>
-                                            </div>
-                                        </div>
-                                      </form>
-                                      
-                                    </div>
-                                </div>
-                                <!-- .chat-right-panel -->
-                            </div>
-                            <!-- /.chat-row -->
-                        </div>
-                    </div>
                 </div>
 
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer">
-               Victor Glomba
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+            <div id="nombreSala" class="div-25">
+                <p>2do div</p>
+            </div>
+            <div class="div-25">
+                <p>3er div</p>
+            </div>
+            <div class="div-25">
+                <p>4to div</p>
+            </div>
+            <div class="div-25">
+                <p>5to div</p>
+            </div>
+
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
+        <!-- Div chat texto, equip, inventario  -->
+        <div class="chatmio">
+
+            <div class="chat-rbox">
+                <ul class="chat-list p-10" id="divChatbox">
+                </ul>
+            </div>
+            <div class="divcentral">
+                <div class="divTexto">
+                    <p id="texto" class="principal">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel earum deleniti
+                        blanditiis labore, laboriosam non eum odio tempora sint veniam nemo, aut veritatis nobis saepe
+                        quibusdam dolore quasi sapiente recusandae?Lorem ipsum dolor sit amet consectetur adipisicing
+                        elit. Vel dolorum, ut velit fugit facere iure perferendis atque delectus amet perspiciatis </p>
+                </div>
+                <div class="divaccion" id="divTexto"> </div>
+            </div>
+
+            <div class="divinventario">
+                <div class="inv">
+                    <div class="lineaslots">
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot1" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot2" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot3" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot4" width="80%" height="100%"></div>
+                    </div>
+                    <div class="lineaslots">
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot5" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot6" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot7" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot8" width="80%" height="100%"></div>
+                    </div>
+                    <div class="lineaslots">
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot9" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot10" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot11" width="80%" height="100%"></div>
+                        <div class="slot" ><img src="/assets/images/users/fondonegro.jpg" id="slot12" width="80%" height="100%"></div>
+                    </div>
+
+                </div>
+                <div class="equipo">
+                    <div class="izquierda"><img src="/assets/images/users/fondonegro.jpg" id="izquierda" width="100%" height="100%"></div>
+                    <div class="centro">
+
+                        <div class="cabeza"><img src="/assets/images/users/fondonegro.jpg" id="cabeza" width="100%" height="100%"></div>
+                        <div class="torso"><img src="/assets/images/users/fondonegro.jpg" id="torso" width="100%" height="100%"></div>
+                    </div>
+                    <div class="derecha"><img src="/assets/images/users/fondonegro.jpg" id="derecha" width="100%" height="100%"></div>
+                </div>
+            </div>
+        </div>
+        <!--Div del foot, Mapa, Mensajes (ultima linea) -->
+        <div class="divfoot">
+            <div class="divmapa">
+                <img src="/assets/images/users/fondonegro.jpg" id="mapa" width="100%" height="100%">
+                <p>Div mapa</p>
+            </div>
+            <div class="divinputs">
+                <form id="formEnviar" class="formenviar">
+                    <!-- por el momento vamos a sacar los mensajes privados
+                    <div class="para">
+                        <input autocomplete="off" id="para" placeholder="Para:" class="form-control b-0 inputpara">
+                        <button id="btnBorrar" type="reset" class="btn btn-danger btn-circle btn-borrar ">X</button>
+                    </div> -->
+                    <div class="consola">
+
+                        <input autocomplete="off" id="txtMensaje" placeholder="Escribe tu mensaje aquí"
+                            class="inputconsola" maxlength="40" autofocus>
+
+                        <button type="submit" class="btn botonenviar">Enviar<i class=""></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="divprecomandos">
+                    <div class="gruposprecomandos">
+                        <input id="inp1" type="text" class="precomandos" maxlength="40">
+                        <input id="inp2" type="text" class="precomandos" maxlength="40">
+                        <input id="inp3" type="text" class="precomandos" maxlength="40">
+                        <input id="inp4" type="text" class="precomandos" maxlength="40">
+                    </div>
+                    <div class="gruposbtn">
+                        <button id="btn1" class="precomandosbtn">#</button>
+                        <button id="btn2" class="precomandosbtn">#</button>
+                        <button id="btn3" class="precomandosbtn">#</button>
+                        <button id="btn4" class="precomandosbtn">#</button>
+                    </div>
+                    <div class="gruposprecomandos">
+                        <input id="inp5" type="text" class="precomandos" maxlength="40">
+                        <input id="inp6" type="text" class="precomandos" maxlength="40">
+                        <input id="inp7" type="text" class="precomandos" maxlength="40">
+                        <input id="inp8" type="text" class="precomandos" maxlength="40">
+                    </div>
+                    <div class="gruposbtn">
+                        <button id="btn5" class="precomandosbtn">#</button>
+                        <button id="btn6" class="precomandosbtn">#</button>
+                        <button id="btn7" class="precomandosbtn">#</button>
+                        <button id="btn8" class="precomandosbtn">#</button>
+                    </div>
+                    <div class="gruposprecomandos">
+                        <input id="inp9" type="text" class="precomandos" maxlength="40">
+                        <input id="inp10" type="text" class="precomandos" maxlength="40">
+                        <input id="inp11" type="text" class="precomandos" maxlength="40">
+                        <input id="inp12" type="text" class="precomandos" maxlength="40">
+                    </div>
+                    <div class="gruposbtn">
+                        <button id="btn9" class="precomandosbtn">#</button>
+                        <button id="btn10" class="precomandosbtn">#</button>
+                        <button id="btn11" class="precomandosbtn">#</button>
+                        <button id="btn12" class="precomandosbtn">#</button>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="divBarras">
+                
+            </div>
+        </div>
+        <!-- .chat-right-panel -->
+
+        <!-- Por el momento sacamos el panel de personas online 
+        
+        <div class="conectados">
+            <div class="open-panel"><i class="ti-angle-right"></i></div>
+            <div class="chat-left-inner">
+                <div class="form-material">
+                    <input id="buscar" class="form-control p-20" type="text" placeholder="Buscar Contacto">
+                </div>
+                <ul class="chatonline style-none" id="divUsuarios">
+                </ul>
+            </div>
+        </div>-->
+
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
+
+
+
+    </div>
+    <br><br><br>
+    <footer class="footer">
+        Victor Glomba
+    </footer>
+
 
 
 
