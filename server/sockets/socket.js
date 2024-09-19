@@ -12,21 +12,37 @@ usuarios.cargarMundo()
 
 io.on('connection', (client) => {
 
+    client.on('actualizarPersonaje', (personajeID, mapaVa) => {
+        usuarios.actualizarPersonaje(personajeID, mapaVa)
+
+        let personaBorrada = usuarios.borrarPersona(client.id)
+        if (personaBorrada) {
+            client.leave(personaBorrada.sala)
+            client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador', `Alguien se aleja...`))
+            client.broadcast.to(personaBorrada.sala).emit('listaPersona', usuarios.getPersonasPorSala(personaBorrada.sala));
+        }
+    
+
+    })
+
+    client.on('obtenerMundo', (callback) => {
+        return callback(usuarios.obtenerMundo())
+    })
     client.on('obtenerPersonaje', async (id, callback) => {
         let pj
         let barras
         pj = usuarios.obtener("personajes", id)
         barras = usuarios.obtener("barras", id)
         inventario = usuarios.obtener("inventario", id)
-        
-        return callback({pj, barras, inventario})
+
+        return callback({ pj, barras, inventario })
     })
     client.on('obtenerInterface', async (sala, callback) => {
         const items = usuarios.obtenerTabla("items")
         const maps = usuarios.obtenerTabla("maps")
         const description = usuarios.obtenerTabla("description")
         const personasMapa = usuarios.getPersonasPorSala(sala)
-        return callback({ items, maps, description, personasMapa})
+        return callback({ items, maps, description, personasMapa })
 
     })
 
@@ -41,10 +57,10 @@ io.on('connection', (client) => {
 
         client.join(data.sala);
 
-        usuarios.agregarPersona(client.id, data.nombre, data.sala, data.img);
+        usuarios.agregarPersona(client.id, data.nombre, data.sala);
 
         client.broadcast.to(data.sala).emit('listaPersona', usuarios.getPersonasPorSala(data.sala));
-        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador', `${data.nombre} se unio.`))
+        client.broadcast.to(data.sala).emit('crearMensaje', crearMensaje('Administrador', `Alguien se acerca...`))
         callback(usuarios.getPersonasPorSala(data.sala));
 
 
@@ -84,11 +100,10 @@ io.on('connection', (client) => {
     })
 
 
-
     client.on('disconnect', () => {
         let personaBorrada = usuarios.borrarPersona(client.id)
         if (personaBorrada) {
-            client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador', `${personaBorrada.nombre} salio.`))
+            client.broadcast.to(personaBorrada.sala).emit('crearMensaje', crearMensaje('Administrador', `Alguien se aleja...`))
             client.broadcast.to(personaBorrada.sala).emit('listaPersona', usuarios.getPersonasPorSala(personaBorrada.sala));
         }
     })

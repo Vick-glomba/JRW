@@ -52,42 +52,22 @@ socket.on('connect', async function () {
     }
 
 
-    socket.emit('obtenerPersonaje', dataToken.personajeID, function ({pj, barras, inventario}) {
-        if (!pj || !barras || !inventario) {
-            window.location = 'index.html';
-        }
-
+    socket.emit('obtenerPersonaje', dataToken.personajeID, function ({ pj }) {
+        if (!pj) { window.location = "index.html" }
         personaje = pj
-        personaje.barras = barras
-        personaje.inventario = inventario
-        
-        console.log("personaje", pj)
 
         var usuario = {
             nombre: personaje.nombre,
             sala: personaje.mapid,
-            img: personaje.imagen,
             token
         }
-
         socket.emit('entrarChat', usuario, function (resp) {
             renderizarUsuarios(resp);
         });
-
-
     })
-
-
-
-
-
-
-
-
-
-
-
 });
+
+
 
 // escuchar
 socket.on('disconnect', function () {

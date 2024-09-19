@@ -5,132 +5,145 @@ const pathImgMaps = "assets/images/maps/"
 const pathImgItems = "assets/images/items/"
 let nombre;
 let sala;
+let mapas
 const interface = async () => {
 
     socket.emit('obtenerInterface', personaje.mapid, ({ items, maps, description, personasMapa }) => {
-        
+        mapas = maps
+        socket.emit('obtenerPersonaje', dataToken.personajeID, function ({ pj, barras, inventario }) {
 
-        //cargo imagen de mapa
-        mapa.attr("src", pathImgMaps + maps[personaje.mapid].imagen)
-        // cargo los inputs que tenia el usuario
-        inp1.val(personaje.precomandos[0])
-        inp2.val(personaje.precomandos[1])
-        inp3.val(personaje.precomandos[2])
-        inp4.val(personaje.precomandos[3])
-        inp5.val(personaje.precomandos[4])
-        inp6.val(personaje.precomandos[5])
-        inp7.val(personaje.precomandos[6])
-        inp8.val(personaje.precomandos[7])
-        inp9.val(personaje.precomandos[8])
-        inp10.val(personaje.precomandos[9])
-        inp11.val(personaje.precomandos[10])
-        inp12.val(personaje.precomandos[11])
-        imgPJ.attr("src", pathImgUsers + personaje.imagen)
-        nombrePJ.text(personaje.nombre)
-        nivelPJ.text(personaje.nivel)
-        exp.text(personaje.barras.experiencia)
-        expTotal.text(personaje.barras.experienciatotal)
-        nombre = personaje.nombre
-        sala = `${personaje.mapid}`
+            if (!pj || !barras || !inventario) {
+                window.location = 'index.html';
+            }
+
+            personaje = pj
+            personaje.barras = barras
+            personaje.inventario = inventario
+
+            console.log("personaje", pj)
 
 
+            //cargo imagen de mapa
+            mapa.attr("src", pathImgMaps + maps[personaje.mapid].imagen)
+            // cargo los inputs que tenia el usuario
+            inp1.val(personaje.precomandos[0])
+            inp2.val(personaje.precomandos[1])
+            inp3.val(personaje.precomandos[2])
+            inp4.val(personaje.precomandos[3])
+            inp5.val(personaje.precomandos[4])
+            inp6.val(personaje.precomandos[5])
+            inp7.val(personaje.precomandos[6])
+            inp8.val(personaje.precomandos[7])
+            inp9.val(personaje.precomandos[8])
+            inp10.val(personaje.precomandos[9])
+            inp11.val(personaje.precomandos[10])
+            inp12.val(personaje.precomandos[11])
+            imgPJ.attr("src", pathImgUsers + personaje.imagen)
+            nombrePJ.text(personaje.nombre)
+            nivelPJ.text(personaje.nivel)
+            exp.text(personaje.barras.experiencia)
+            expTotal.text(personaje.barras.experienciatotal)
+            nombre = personaje.nombre
+            sala = `${personaje.mapid}`
 
-        if (items[personaje.inventario.slot1 - 1] !== undefined) {
-            slot1.attr('src', pathImgItems + items[personaje.inventario.slot1 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot2 - 1] !== undefined) {
-            slot2.attr('src', pathImgItems + items[personaje.inventario.slot2 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot3 - 1] !== undefined) {
-            slot3.attr('src', pathImgItems + items[personaje.inventario.slot3 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot4 - 1] !== undefined) {
-            slot4.attr('src', pathImgItems + items[personaje.inventario.slot4 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot5 - 1] !== undefined) {
-            slot5.attr('src', pathImgItems + items[personaje.inventario.slot5 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot6 - 1] !== undefined) {
-            slot6.attr('src', pathImgItems + items[personaje.inventario.slot6 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot7 - 1] !== undefined) {
-            slot7.attr('src', pathImgItems + items[personaje.inventario.slot7 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot8 - 1] !== undefined) {
-            slot8.attr('src', pathImgItems + items[personaje.inventario.slot8 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot9 - 1] !== undefined) {
-            slot9.attr('src', pathImgItems + items[personaje.inventario.slot9 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot10 - 1] !== undefined) {
-            slot10.attr('src', pathImgItems + items[personaje.inventario.slot10 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot11 - 1] !== undefined) {
-            slot11.attr('src', pathImgItems + items[personaje.inventario.slot11 - 1].imagen)
-        }
-        if (items[personaje.inventario.slot12 - 1] !== undefined) {
-            slot12.attr('src', pathImgItems + items[personaje.inventario.slot12 - 1].imagen)
-        }
 
-        if (items[personaje.inventario.manoizq - 1] !== undefined) {
-            manoizq.attr('src', pathImgItems + items[personaje.inventario.manoizq - 1].imagen)
-        }
-        if (items[personaje.inventario.cabeza - 1] !== undefined) {
-            cabeza.attr('src', pathImgItems + items[personaje.inventario.cabeza - 1].imagen)
-        }
-        if (items[personaje.inventario.torso - 1] !== undefined) {
-            torso.attr('src', pathImgItems + items[personaje.inventario.torso - 1].imagen)
-        }
-        if (items[personaje.inventario.manoder - 1] !== undefined) {
-            manoder.attr('src', pathImgItems + items[personaje.inventario.manoder - 1].imagen)
-        }
 
-        var htmlSala = '<h2 class="text-warning">Mapa <small>' + sala + '</small></h3>';
+            if (items[personaje.inventario.slot1 - 1] !== undefined) {
+                slot1.attr('src', pathImgItems + items[personaje.inventario.slot1 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot2 - 1] !== undefined) {
+                slot2.attr('src', pathImgItems + items[personaje.inventario.slot2 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot3 - 1] !== undefined) {
+                slot3.attr('src', pathImgItems + items[personaje.inventario.slot3 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot4 - 1] !== undefined) {
+                slot4.attr('src', pathImgItems + items[personaje.inventario.slot4 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot5 - 1] !== undefined) {
+                slot5.attr('src', pathImgItems + items[personaje.inventario.slot5 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot6 - 1] !== undefined) {
+                slot6.attr('src', pathImgItems + items[personaje.inventario.slot6 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot7 - 1] !== undefined) {
+                slot7.attr('src', pathImgItems + items[personaje.inventario.slot7 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot8 - 1] !== undefined) {
+                slot8.attr('src', pathImgItems + items[personaje.inventario.slot8 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot9 - 1] !== undefined) {
+                slot9.attr('src', pathImgItems + items[personaje.inventario.slot9 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot10 - 1] !== undefined) {
+                slot10.attr('src', pathImgItems + items[personaje.inventario.slot10 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot11 - 1] !== undefined) {
+                slot11.attr('src', pathImgItems + items[personaje.inventario.slot11 - 1].imagen)
+            }
+            if (items[personaje.inventario.slot12 - 1] !== undefined) {
+                slot12.attr('src', pathImgItems + items[personaje.inventario.slot12 - 1].imagen)
+            }
 
-        nombreSala.html(htmlSala);
-        let itemsEnMapa = [];
-        for (let i = 0; i < maps[personaje.mapid -1].itemsid.length; i++) {
-            itemsEnMapa.push( items[maps[personaje.mapid -1].itemsid[i] -1].nombre)
-            
-        }
-       
-        itemsEnMapa = itemsEnMapa.join(', ')
-        itemsEnMapa = itemsEnMapa.length>0? ". Puedes ver algunos objetos por el lugar: "+ itemsEnMapa+ "." : "" 
-        let result = personasMapa.length;
-        console.log(result) 
-        let personasEnMapa = ""
-        if(result <= 3){
-            personasEnMapa = "hay pocas personas a tu alrededor"
-        }
-        else if (result <= 6){
-            personasEnMapa = "hay muchas personas a tu alrededor"
-        } else if(result >= 7){
-             personasEnMapa = "hay una multitud a tu alrededor"
-        }
-  
-                    console.log(result,personasEnMapa)
+            if (items[personaje.inventario.manoizq - 1] !== undefined) {
+                manoizq.attr('src', pathImgItems + items[personaje.inventario.manoizq - 1].imagen)
+            }
+            if (items[personaje.inventario.cabeza - 1] !== undefined) {
+                cabeza.attr('src', pathImgItems + items[personaje.inventario.cabeza - 1].imagen)
+            }
+            if (items[personaje.inventario.torso - 1] !== undefined) {
+                torso.attr('src', pathImgItems + items[personaje.inventario.torso - 1].imagen)
+            }
+            if (items[personaje.inventario.manoder - 1] !== undefined) {
+                manoder.attr('src', pathImgItems + items[personaje.inventario.manoder - 1].imagen)
+            }
 
-            console.log("id del mapa del personaje :",maps[personaje.mapid -1])
-         let criaturasEnMapa = maps[personaje.mapid -1].criaturasid.length
-           
-        console.log(criaturasEnMapa)
-         if(criaturasEnMapa === 1){
-            criaturasEnMapa = ". Hay una criatura cerca"
-        }
-        else if (criaturasEnMapa === 2){
-            criaturasEnMapa = "hay varias criaturas a tu alrededor"
-        } else if(criaturasEnMapa >= 3){
-             criaturasEnMapa = "hay muchas criaturas a tu alrededor"
-        }
+            var htmlSala = '<h2 class="text-warning">Mapa <small>' + sala + '</small></h3>';
 
-        let textoArmado = `Te encuentras en ${description[personaje.mapid - 1].ubicacion} de ${description[personaje.mapid - 1].lugar}
+            nombreSala.html(htmlSala);
+            let itemsEnMapa = [];
+            for (let i = 0; i < maps[personaje.mapid - 1].itemsid.length; i++) {
+                itemsEnMapa.push(items[maps[personaje.mapid - 1].itemsid[i] - 1].nombre + `[ ${i + 1} ]`)
+
+            }
+
+            itemsEnMapa = itemsEnMapa.join(', ')
+            itemsEnMapa = itemsEnMapa.length > 0 ? ". Puedes ver algunos objetos por el lugar: " + itemsEnMapa + "." : ""
+            let result = personasMapa.length;
+
+            let personasEnMapa = ""
+            if (result <= 3) {
+                personasEnMapa = "hay pocas personas a tu alrededor"
+            }
+            else if (result <= 6) {
+                personasEnMapa = "hay muchas personas a tu alrededor"
+            } else if (result >= 7) {
+                personasEnMapa = "hay una multitud a tu alrededor"
+            }
+
+
+
+            console.log("id del mapa del personaje :", maps[personaje.mapid - 1])
+            let criaturasEnMapa = maps[personaje.mapid - 1].criaturasid.length
+
+
+            if (criaturasEnMapa === 1) {
+                criaturasEnMapa = ". Hay una criatura cerca"
+            }
+            else if (criaturasEnMapa === 2) {
+                criaturasEnMapa = "hay varias criaturas a tu alrededor"
+            } else if (criaturasEnMapa >= 3) {
+                criaturasEnMapa = "hay muchas criaturas a tu alrededor"
+            }
+
+            let textoArmado = `Te encuentras en ${description[personaje.mapid - 1].ubicacion} de ${description[personaje.mapid - 1].lugar}
          ${description[personaje.mapid - 1].detalles[0]} ${personasEnMapa}
         ${criaturasEnMapa} ${itemsEnMapa}
         `
 
-    texto.text(textoArmado)
-
-})
+            texto.text(textoArmado)
+        })
+    })
 
 }
 
@@ -207,9 +220,118 @@ var divTexto = $('#divTexto');
 
 function renderAccion(mensaje) {
 
-    var html = ''
-    html += '<p class="accion">' + mensaje + '</p>';
-    divTexto.html(html)
+    //ACA ver todo el tema comandos
+
+    //desarmar el mensaje 
+    const comando = mensaje.split(" ")[0]
+    const comandoArg = mensaje.split(" ")[1] ? mensaje.split(" ")[1] : ""
+    const resto = mensaje.slice((comando.length + comandoArg.length + 1)) ? mensaje.slice((comando.length + comandoArg.length + 1)) : ""
+    let mensajeConsola = ""
+    let ancho;
+    let alto;
+    const actualizarPersonaje= (personajeID, mapaVa)=>{  
+        socket.emit('actualizarPersonaje', personajeID, mapaVa, sala, personaje.nombre)
+
+        var usuario = {
+            nombre: personaje.nombre,
+            sala: mapaVa,
+            token
+        }
+      
+       $("#divChatbox").empty();
+        
+        socket.emit('entrarChat', usuario, function (resp) {
+            renderizarUsuarios(resp);
+        });
+
+    }
+
+    socket.emit('obtenerMundo', function ({ dimensiones, maps }) {
+        ancho = dimensiones.ancho
+        alto = dimensiones.alto
+
+
+        const mapaEsta = personaje.mapid
+        let mapaVa = personaje.mapid
+
+
+        switch (comando) {
+            case "/ir":
+                if (!resto) {
+                    if (["derecha", "izquierda", "arriba", "abajo"].includes(comandoArg)) {
+                        switch (comandoArg) {
+                            case "derecha":                           
+                                mapaVa = (mapaEsta + 1)
+                                
+                                            
+                                if ( !mapas[mapaVa] || mapaEsta%ancho === 0) {
+                                    mensajeConsola = "Ya no hay mapas hacia la derecha"
+                                } else {
+                                    mensajeConsola = `Caminas hacia la derecha al mapa: ${mapaVa}`
+                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    actualizarPersonaje(personaje.id, mapaVa)
+                                }
+                                break;
+                            case "izquierda":
+                                mapaVa = (mapaEsta - 1)
+                                if (!mapas[mapaVa] || mapaVa%ancho === 0) {
+                                    mensajeConsola = "Ya no hay mapas hacia la izquierda"
+                                } else {
+                                    mensajeConsola = `Caminas hacia la izquierda al mapa: ${mapaVa}`
+                                 
+                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    actualizarPersonaje(personaje.id, mapaVa)
+                                }
+                                break;
+                            case "arriba":
+                                mapaVa = (mapaEsta - ancho)
+                                if (!mapas[mapaVa] || mapaVa < 1) {
+                                    mensajeConsola = "Ya no hay mapas hacia arriba"
+                                } else {
+                                    mensajeConsola = "Caminas hacia arriba" + " al mapa: " + mapaVa
+                                   
+                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    actualizarPersonaje(personaje.id, mapaVa)
+                                }
+                                break;
+                            case "abajo":
+                                mapaVa = (mapaEsta + ancho)
+                                if (!mapas[mapaVa] || mapaVa > alto * ancho) {
+                                    mensajeConsola = "Ya no hay mapas hacia abajo"
+                                } else {
+                                    mensajeConsola = "Caminas hacia abajo" + " al mapa: " + mapaVa
+                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    actualizarPersonaje(personaje.id, mapaVa)
+                                }
+                                break;
+                                default:
+                                    mensajeConsola = "cayo en el default de /ir"
+                                    break;
+                                }
+                                
+                        
+                    } else if (!comandoArg) {
+                        mensajeConsola = "falta direccion a donde ir"
+                    } else {
+                        mensajeConsola = "Comando invalido"
+                    }
+
+
+                } else {
+                    mensajeConsola = "Comando invalido"
+                }
+                break;
+
+            default:
+                break;
+        }
+     
+
+        var html = ''
+        html += '<p class="accion">' + mensajeConsola + '</p>';
+        divTexto.html(html)
+      
+    })
 }
 
 async function renderizarUsuarios(personas) {
@@ -253,8 +375,8 @@ function renderizarMensajes(mensaje, yo, privado) {
         adminClass = "success";
     }
     if (mensaje.nombre === "Administrador") {
-        adminClass = "text-warning";
-        mensaje.mensaje = '--' + mensaje.mensaje + '--'
+        adminClass = "text-admin";
+
     } else {
 
         mensaje.mensaje = ' ' + mensaje.nombre + ': ' + mensaje.mensaje
@@ -271,7 +393,7 @@ function renderizarMensajes(mensaje, yo, privado) {
         if (privado) {
             html += '        <div class="box">' + 'Privado: ' + mensaje.mensaje + '</div>';
         } else {
-            html += '        <div class="box">' + mensaje.mensaje + '</div>';
+            html += '        <div class="box ' + adminClass + '">' + mensaje.mensaje + '</div>';
         }
         html += '    </div>';
         //       html += '    <div class="chat-time">'+ hora +'</div>';
@@ -389,7 +511,7 @@ formEnviar.on('submit', function (e) {
         return
     };
     const primerPalabra = txtMensaje.val().trim().split(' ')[0]
-    const comandos = ['/ir', '/comerciar', '/tirar', '/usar']
+    const comandos = ['/ir', '/comerciar', '/tirar', '/usar', '/agarrar']
     if (comandos.includes(primerPalabra)) {
 
         renderAccion(txtMensaje.val())

@@ -2,11 +2,32 @@ const usersService = require("../../src/services/usersService");
 
 //ESTE ES EL SERVER
 
+
+
+//creador tabla para ver los mapas y poder analizar si pasa bien de mapa a mapa
+const ancho = 8
+const alto = 11
+const mapasTotal = ancho * alto
+let arrayFilas = []
+let fila = []
+
+    for (let i = 1; i <= mapasTotal; i++) {
+        fila.push(i) ;
+        if(i%ancho === 0){
+            arrayFilas.push(fila)
+            fila = []
+        }   
+    }   
+    console.table(arrayFilas)
+ 
+
+
 class Usuarios {
 
     constructor() {
         this.personas = [];
         this.mundo = []
+        this.mundo.dimensiones = [ ancho, alto]
         this.mundo.personajes = [];
         this.mundo.barras = [];
         this.mundo.maps = [];
@@ -16,9 +37,25 @@ class Usuarios {
         this.mundo.habilidades = [];
         this.mundo.inventario = [];
         this.mundo.description = [];
-    
+        
+        console.log("ancho:", this.mundo.dimensiones[0], "alto:" ,this.mundo.dimensiones[1])
     }
+    
+    actualizarPersonaje(personajeID, mapaVa) {
+        const pjAntes = this.mundo.personajes[personajeID -1]
+         this.mundo.personajes[personajeID -1].mapid = mapaVa
+        const pj = this.mundo.personajes[personajeID -1]
+        console.log("personaje desde actualizarpersonaje", pjAntes, pj)
 
+    }
+    obtenerMundo() {
+        return { 
+            dimensiones: {
+             ancho : this.mundo.dimensiones[0],
+             alto : this.mundo.dimensiones[1],
+            },
+            maps: this.mundo.maps}
+    }
     obtener(tabla, id) {
         return this.mundo[tabla][id - 1]
     }
@@ -27,9 +64,9 @@ class Usuarios {
     }
 
 
-    agregarPersona(id, nombre, sala, img) {
+    agregarPersona(id, nombre, sala) {
 
-        let persona = { id, nombre, sala, img };
+        let persona = { id, nombre, sala};
 
         this.personas.push(persona);
         return this.personas;
