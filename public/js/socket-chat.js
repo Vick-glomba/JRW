@@ -88,7 +88,8 @@ socket.on('connect', async function () {
           //  console.log(htmlMapa)
             $("#marcoMapa").html(htmlMapa)
             cabecera.height(0)
-            $(html).scrollTop(0)
+            
+            //$(html).scrollTop(0)
 
             var usuario = {
                 nombre: personaje.nombre,

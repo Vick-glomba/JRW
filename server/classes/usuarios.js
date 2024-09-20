@@ -6,7 +6,7 @@ const usersService = require("../../src/services/usersService");
 
 //creador tabla para ver los mapas y poder analizar si pasa bien de mapa a mapa
 const ancho = 15
-const alto = 10
+const alto = 30
 const mapasTotal = ancho * alto
 let arrayFilas = []
 let fila = []
