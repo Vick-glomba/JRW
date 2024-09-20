@@ -5,8 +5,8 @@ const usersService = require("../../src/services/usersService");
 
 
 //creador tabla para ver los mapas y poder analizar si pasa bien de mapa a mapa
-const ancho = 8
-const alto = 11
+const ancho = 15
+const alto = 10
 const mapasTotal = ancho * alto
 let arrayFilas = []
 let fila = []
@@ -28,25 +28,21 @@ class Usuarios {
         this.personas = [];
         this.mundo = []
         this.mundo.dimensiones = [ ancho, alto]
-        this.mundo.personajes = [];
-        this.mundo.barras = [];
-        this.mundo.maps = [];
-        this.mundo.criaturas = [];
-        this.mundo.items = [];
-        this.mundo.hechizos =[];
-        this.mundo.habilidades = [];
-        this.mundo.inventario = [];
-        this.mundo.description = [];
+        this.mundo.personajes = {};
+        this.mundo.barras = {};
+        this.mundo.maps = {};
+        this.mundo.criaturas = {};
+        this.mundo.items = {};
+        this.mundo.hechizos ={};
+        this.mundo.habilidades = {};
+        this.mundo.inventario = {};
+        this.mundo.description = {};
         
         console.log("ancho:", this.mundo.dimensiones[0], "alto:" ,this.mundo.dimensiones[1])
     }
     
     actualizarPersonaje(personajeID, mapaVa) {
-        const pjAntes = this.mundo.personajes[personajeID -1]
-         this.mundo.personajes[personajeID -1].mapid = mapaVa
-        const pj = this.mundo.personajes[personajeID -1]
-        console.log("personaje desde actualizarpersonaje", pjAntes, pj)
-
+         this.mundo.personajes[personajeID ].mapid = mapaVa
     }
     obtenerMundo() {
         return { 
@@ -57,7 +53,7 @@ class Usuarios {
             maps: this.mundo.maps}
     }
     obtener(tabla, id) {
-        return this.mundo[tabla][id - 1]
+        return this.mundo[tabla][id ]
     }
     obtenerTabla(tabla) {
         return this.mundo[tabla]
@@ -118,11 +114,15 @@ class Usuarios {
     }
     cargarTabla = async (tabla) => {
         let respTabla = await usersService.getAll(tabla)
+        let arrayToObject = {}
 
         if (respTabla.result[0]) {
-            this.mundo[tabla] = respTabla.result   
+        respTabla.result.forEach( indice => {
+           arrayToObject[indice.id] = indice      
+        });       
+            this.mundo[tabla] = arrayToObject  
         } else {
-            console.log("No cago la tabla: ", tabla)
+            console.log("No cargo la tabla: ", tabla)
         }
 
     }

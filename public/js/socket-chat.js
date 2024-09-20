@@ -56,14 +56,62 @@ socket.on('connect', async function () {
         if (!pj) { window.location = "index.html" }
         personaje = pj
 
-        var usuario = {
-            nombre: personaje.nombre,
-            sala: personaje.mapid,
-            token
-        }
-        socket.emit('entrarChat', usuario, function (resp) {
-            renderizarUsuarios(resp);
-        });
+        socket.emit('obtenerMundo', function ({ dimensiones, maps }) {
+            ancho = dimensiones.ancho
+            alto = dimensiones.alto
+            mapas = maps
+            //armar el mapa aca
+            let imagenMapa = "fondonegro.jpg"
+            let htmlMapa = ""
+            let cantidadMapas = 0
+            const altura= 35
+            const anchura= 100/ancho
+            for (let i = 0; i < alto; i++) {
+                
+                htmlMapa += `
+                <div class="filaMapa" height="${altura}px">`
+                for (let i = 0; i < ancho; i++) {
+                    cantidadMapas += 1
+                    if(mapas[cantidadMapas] && mapas[cantidadMapas].imagen){
+                        imagenMapa = mapas[cantidadMapas].imagen
+                    } else {
+                        imagenMapa = "fondonegro.jpg"
+                    }
+                    htmlMapa += `
+                    <div style="width:${anchura}%; height:${altura}px; border-color: rgb(206, 216, 166); border-width: 5px; border-style: double; background-color: blueviolet;"><img src="../assets/images/maps/${imagenMapa}" style="width:100%; height:100%"></div>`
+                }
+                htmlMapa += `
+                </div>`
+
+            }
+            console.log(cantidadMapas)
+          //  console.log(htmlMapa)
+            $("#marcoMapa").html(htmlMapa)
+            cabecera.height(0)
+            $(html).scrollTop(0)
+
+            var usuario = {
+                nombre: personaje.nombre,
+                sala: personaje.mapid,
+                token
+            }
+            // cargo los inputs que tenia el usuario
+            inp1.val(personaje.precomandos[0])
+            inp2.val(personaje.precomandos[1])
+            inp3.val(personaje.precomandos[2])
+            inp4.val(personaje.precomandos[3])
+            inp5.val(personaje.precomandos[4])
+            inp6.val(personaje.precomandos[5])
+            inp7.val(personaje.precomandos[6])
+            inp8.val(personaje.precomandos[7])
+            inp9.val(personaje.precomandos[8])
+            inp10.val(personaje.precomandos[9])
+            inp11.val(personaje.precomandos[10])
+            inp12.val(personaje.precomandos[11])
+            socket.emit('entrarChat', usuario, function (resp) {
+                renderizarUsuarios(resp);
+            });
+        })
     })
 });
 

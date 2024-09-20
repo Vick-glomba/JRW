@@ -373,7 +373,6 @@ const getTabla = async (tabla) => {
         const sql = ` SELECT
             *
         FROM ${tabla}
-        ORDER BY id ASC
         `
         const result = await db.query(sql);
         return result.rows;

@@ -26,12 +26,14 @@ textarea {
 }
 .chatmio{
     display: flex;
+    overflow-y: hidden;
 }
 .divCabecera {
     margin-bottom: 2px;
     display: flex;
     width: 100%;
     height: 65px;
+
 }
 .divfoot {
     display: flex;
@@ -46,6 +48,7 @@ textarea {
     width: 20%;
     height: 90%;
     text-align: center;
+    
     
 }
 .divuser{
@@ -383,4 +386,36 @@ text-align: center;
 }
 .botonPj:hover{
     background-color: rgba(163, 177, 10, 0.554);
+}
+.botonMapa{
+    height: 100%;
+    width: 100%;
+    background-color: rgb(6, 116, 6);
+}
+
+.divMapa{
+    display: flex;
+   
+
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 100%;
+    height: 0%;
+    background-color: #171713;
+  
+}
+.marcoMapa{
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 80%;
+    overflow-y: hidden;
+}
+.filaMapa{
+    width: 100%; 
+    display: flex;
+    background-color: blue;
+}
+.slotMapa{
+    width: 100%; border-color: rgb(206, 216, 166); border-width: 5px; border-style: double; background-color: blueviolet;
 }
