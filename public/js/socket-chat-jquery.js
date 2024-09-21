@@ -5,7 +5,8 @@ const pathImgMaps = "assets/images/maps/"
 const pathImgItems = "assets/images/items/"
 let nombre;
 let sala;
-let mapas
+let mapas;
+let ecosistemas;
 
 const interface = async () => {
 
@@ -462,6 +463,7 @@ let abierto = false
 mapaMundo.on("click",()=>{
     if(abierto){
         cabecera.height(0)
+        $('html').scrollTop(0)
         abierto = false
     }else {
         cabecera.height('100%')

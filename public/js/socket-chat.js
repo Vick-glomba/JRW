@@ -56,40 +56,44 @@ socket.on('connect', async function () {
         if (!pj) { window.location = "index.html" }
         personaje = pj
 
-        socket.emit('obtenerMundo', function ({ dimensiones, maps }) {
+        socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
             ancho = dimensiones.ancho
             alto = dimensiones.alto
             mapas = maps
+            ecosistemas = enviroments
             //armar el mapa aca
-            let imagenMapa = "fondonegro.jpg"
+            let imagen = "fondonegro.jpg"
             let htmlMapa = ""
             let cantidadMapas = 0
-            const altura= 35
             const anchura= 100/ancho
-            for (let i = 0; i < alto; i++) {
-                
+            const altura= anchura*5
+            const tamañoLetra= altura*0.5
+            
+
+            for (let i = 0; i < alto; i++) {                
                 htmlMapa += `
                 <div class="filaMapa" height="${altura}px">`
                 for (let i = 0; i < ancho; i++) {
                     cantidadMapas += 1
-                    if(mapas[cantidadMapas] && mapas[cantidadMapas].imagen){
-                        imagenMapa = mapas[cantidadMapas].imagen
+                    if(mapas[cantidadMapas] && ecosistemas[mapas[cantidadMapas].enviromentid]){
+                        imagen = ecosistemas[mapas[cantidadMapas].enviromentid].imagen        
                     } else {
-                        imagenMapa = "fondonegro.jpg"
+                        imagen = "fondonegro.jpg"
                     }
                     htmlMapa += `
-                    <div style="width:${anchura}%; height:${altura}px; border-color: rgb(206, 216, 166); border-width: 5px; border-style: double; background-color: blueviolet;"><img src="../assets/images/maps/${imagenMapa}" style="width:100%; height:100%"></div>`
+                    <div style=" width:${anchura}%; height:${altura}px; border-color: rgb(0,0,0); border-width: 5px; border-style: double; background-color: rgba(130, 132, 17, 0.77);"><div style= "width:100%; height:100%; background-size: 10rem;background-repeat: no-repeat; background-image:url(../assets/images/enviroments/${imagen}); overload:visible "><p style="color: white;	-webkit-text-stroke: 1px #F8F8F7; text-shadow: 0px 1px 4px #23430C; margin:0%;padding-top:15%; font-size: 0.8rem; width:100%; height:100%; text-align: center; ">${cantidadMapas}</p></div></div>`
                 }
                 htmlMapa += `
                 </div>`
-
+                //dejo la imagen de mapa por si la necesito
+                //<img src="../assets/images/maps/${imagenMapa}" style="width:100%; height:100%; overflow: visible;">
             }
             console.log(cantidadMapas)
           //  console.log(htmlMapa)
             $("#marcoMapa").html(htmlMapa)
             cabecera.height(0)
             
-            //$(html).scrollTop(0)
+            $('html').scrollTop(0)
 
             var usuario = {
                 nombre: personaje.nombre,

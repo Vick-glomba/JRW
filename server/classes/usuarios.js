@@ -5,8 +5,8 @@ const usersService = require("../../src/services/usersService");
 
 
 //creador tabla para ver los mapas y poder analizar si pasa bien de mapa a mapa
-const ancho = 15
-const alto = 30
+const ancho = 10
+const alto = 20
 const mapasTotal = ancho * alto
 let arrayFilas = []
 let fila = []
@@ -37,6 +37,7 @@ class Usuarios {
         this.mundo.habilidades = {};
         this.mundo.inventario = {};
         this.mundo.description = {};
+        this.mundo.enviroments = {};
         
         console.log("ancho:", this.mundo.dimensiones[0], "alto:" ,this.mundo.dimensiones[1])
     }
@@ -50,7 +51,9 @@ class Usuarios {
              ancho : this.mundo.dimensiones[0],
              alto : this.mundo.dimensiones[1],
             },
-            maps: this.mundo.maps}
+            maps: this.mundo.maps,
+            enviroments: this.mundo.enviroments
+        }
     }
     obtener(tabla, id) {
         return this.mundo[tabla][id ]
@@ -103,6 +106,8 @@ class Usuarios {
             await this.cargarTabla("barras")
             await this.cargarTabla("inventario")
             await this.cargarTabla("description")
+            await this.cargarTabla("enviroments")
+            
             console.log("CARGO MUNDO CORRECTAMENTE", Object.keys(this.mundo))
 
         } catch (error) {
