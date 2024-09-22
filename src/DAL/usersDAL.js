@@ -6,7 +6,7 @@ const get = async () => {
 
     try {
         const sql = `SELECT 
-        id,
+        uid,
         username,
         ,
         mail,
@@ -99,13 +99,13 @@ const crearPersonaje = async ({ userID, nombre, imagen, descripcion, mapID }) =>
 };
 
 
-const updateAdmin = async ({ username, mail, avatar, id }) => {
+const updateAdmin = async ({ username, mail, avatar, uid }) => {
 
     const sql = `UPDATE users SET
     username = '${username}',
     mail = '${mail}',
     avatar = '${avatar || ''}'
-     WHERE id = ${id} and
+     WHERE uid = ${uid} and
      users.role = 'C' OR users.role = 'E' ;`
 
     try {
@@ -117,13 +117,13 @@ const updateAdmin = async ({ username, mail, avatar, id }) => {
     }
 };
 
-const updateEmpleado = async ({ username, mail, avatar, id }) => {
+const updateEmpleado = async ({ username, mail, avatar, uid }) => {
 
     const sql = `UPDATE users SET
     username = '${username}',
     mail = '${mail}',
     avatar = '${avatar || ''}'
-     WHERE id = ${id} and
+     WHERE uid = ${uid} and
      users.role = 'C';`
 
     try {
@@ -135,14 +135,14 @@ const updateEmpleado = async ({ username, mail, avatar, id }) => {
     }
 };
 
-const updateCliente = async ({ username, password, mail, avatar, id }) => {
+const updateCliente = async ({ username, password, mail, avatar, uid }) => {
 
     const sql = `UPDATE users SET
     username = '${username}',
     password = '${password}',
     mail = '${mail}',
     avatar = '${avatar || ''}'
-     WHERE id = ${id} and
+     WHERE uid = ${uid} and
      users.role = "C";`
 
     try {
@@ -186,9 +186,9 @@ const updateVerify = async (mail, boolean) => {
     }
 };
 
-const removeAdmin = async ({ id }) => {
+const removeAdmin = async ({ uid }) => {
     try {
-        const sql = `DELETE FROM users WHERE id = ${id}`
+        const sql = `DELETE FROM users WHERE uid = ${uid}`
         const result = await db.query(sql);
 
         return result.rowCount;
@@ -198,9 +198,9 @@ const removeAdmin = async ({ id }) => {
     }
 };
 
-const removeClienteEmpleado = async ({ id }) => {
+const removeClienteEmpleado = async ({ uid }) => {
     try {
-        const sql = `DELETE FROM users WHERE id = ${id} and users.role = "C"`
+        const sql = `DELETE FROM users WHERE uid = ${uid} and users.role = "C"`
         const result = await db.query(sql);
 
         return result.rowCount;
@@ -214,7 +214,7 @@ const getUsuarioByName = async ({ username }) => {
 
     try {
         const sql = `SELECT 
-        users.id,
+        users.uid,
         users.username,
         users.password,
         case WHEN users.role = 'E' THEN 'Empleador'
@@ -264,7 +264,7 @@ const updateValueToUser = async (campo = "", value, userID = 0 ) => {
 
     const sql = `UPDATE users SET
     ${campo}= ${value}
-     WHERE id = ${userID} ;`
+     WHERE uid = ${userID} ;`
 
     try {
         const result = await db.query(sql)
@@ -279,7 +279,7 @@ const getUsuarioByMail = async (mail) => {
 
     try {
         const sql = `SELECT 
-         id,
+         uid,
          username,
          mail
          FROM users 
@@ -294,11 +294,11 @@ const getUsuarioByMail = async (mail) => {
     }
 };
 
-const getUsuarioByID = async (id) => {
+const getUsuarioByID = async (uid) => {
 
     try {
         const sql = `SELECT 
-        users.id,
+        users.uid,
         users.username,
         users.password,
         case WHEN users.role = 'E' THEN 'Empleador'
@@ -315,7 +315,7 @@ const getUsuarioByID = async (id) => {
         isactive as "isActive"
         FROM users 
         WHERE
-        users.id = ${id} 
+        users.uid = ${uid} 
         and users.isActive= true`
 
         const result = await db.query(sql);
@@ -330,7 +330,7 @@ const getPersonajeByID = async (personajeID) => {
 
     try {
         const sql = ` SELECT
-            id,
+            uid,
             userid,
             nombre,
             imagen,
@@ -344,7 +344,7 @@ const getPersonajeByID = async (personajeID) => {
             mapid
         FROM personajes 
         WHERE
-        personajes.id = ${personajeID};`
+        personajes.uid = ${personajeID};`
         const result = await db.query(sql);
         return result.rows;
     } catch (e) {
@@ -359,7 +359,7 @@ const getMapByID = async (mapID) => {
             *
         FROM maps 
         WHERE
-        maps.id = ${mapID};`
+        maps.uid = ${mapID};`
         const result = await db.query(sql);
         return result.rows;
     } catch (e) {
@@ -412,14 +412,14 @@ const getInventarioByID = async (personajeID) => {
     }
 };
 
-const userIsVerified = async (id) => {
+const userIsVerified = async (uid) => {
 
     try {
         const sql = `SELECT 
         isverified
         FROM users 
         WHERE
-        id = ${id} and
+        uid = ${uid} and
         isverified = true`
 
         const result = await db.query(sql);
@@ -433,11 +433,11 @@ const userIsVerified = async (id) => {
     }
 };
 
-const updateStatus = async ({ disabled, id }) => {
+const updateStatus = async ({ disabled, uid }) => {
 
     const sql = `UPDATE users SET
     isActive = '${disabled}'
-     WHERE id = ${id};`
+     WHERE uid = ${uid};`
 
     try {
         const result = await db.query(sql)
@@ -447,11 +447,11 @@ const updateStatus = async ({ disabled, id }) => {
         throw new Error(e);
     }
 };
-const updateRole = async ({ role, id }) => {
+const updateRole = async ({ role, uid }) => {
 
     const sql = `UPDATE users SET
      role = '${role}'
-      WHERE id = ${id};`
+      WHERE uid = ${uid};`
 
     try {
         const result = await db.query(sql)
@@ -489,14 +489,14 @@ const existeAvatar = async (src) => {
     }
 };
 
-const checkRecoveryMail = async (id) => {
+const checkRecoveryMail = async (uid) => {
     try {
         const sql = `SELECT 
         userid,
         done
         FROM recoverymails
         WHERE
-        userid = ${id}`
+        userid = ${uid}`
 
         const result = await db.query(sql);
         if (result.rows[0]) {

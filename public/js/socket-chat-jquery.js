@@ -15,16 +15,16 @@ const interface = async () => {
         mapas = maps
 
         socket.emit('obtenerPersonaje', dataToken.personajeID, function ({ pj, barras, inventario }) {
-
-            if (!pj || !barras || !inventario) {
-                window.location = 'index.html';
-            }
+           
+             if (!pj || !barras || !inventario) {
+                 window.location = 'index.html';
+             }
 
             personaje = pj
             personaje.barras = barras
             personaje.inventario = inventario
 
-            
+           
 
             //cargo imagen de mapa
             mapa.attr("src", pathImgMaps + maps[personaje.mapid].imagen)
@@ -126,9 +126,8 @@ const interface = async () => {
             } else if (criaturasEnMapa >= 3) {
                 criaturasEnMapa = "hay muchas criaturas a tu alrededor"
             }
-
-            let textoArmado = `Te encuentras en ${description[personaje.mapid ].ubicacion} de ${description[personaje.mapid ].lugar}
-         ${description[personaje.mapid ].detalles[0]} ${personasEnMapa}
+            let textoArmado = `Te encuentras en ${description[mapas[personaje.mapid].descripcionid ].ubicacion} de ${description[mapas[personaje.mapid].descripcionid ].lugar}.
+         ${description[mapas[personaje.mapid].descripcionid ].detalles[0]}, ${personasEnMapa}
         ${criaturasEnMapa} ${itemsEnMapa}
         `
 
@@ -262,7 +261,7 @@ function renderAccion(mensaje) {
                                 } else {
                                     mensajeConsola = `Caminas hacia la derecha al mapa: ${mapaVa}`
                                     console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
-                                    actualizarPersonaje(personaje.id, mapaVa)
+                                    actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
                             case "izquierda":
@@ -274,7 +273,7 @@ function renderAccion(mensaje) {
                                     mensajeConsola = `Caminas hacia la izquierda al mapa: ${mapaVa}`
                                  
                                     console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
-                                    actualizarPersonaje(personaje.id, mapaVa)
+                                    actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
                             case "arriba":
@@ -286,7 +285,7 @@ function renderAccion(mensaje) {
                                     mensajeConsola = "Caminas hacia arriba" + " al mapa: " + mapaVa
                                    
                                     console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
-                                    actualizarPersonaje(personaje.id, mapaVa)
+                                    actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
                             case "abajo":
@@ -297,7 +296,7 @@ function renderAccion(mensaje) {
                                 } else {
                                     mensajeConsola = "Caminas hacia abajo" + " al mapa: " + mapaVa
                                     console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
-                                    actualizarPersonaje(personaje.id, mapaVa)
+                                    actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
                                 default:

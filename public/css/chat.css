@@ -355,6 +355,7 @@ text-align: center;
     height: 400px;
 }
 .cabeceraMenu{
+    display: flex;
     width: 100%;
     height: 100px;
     
@@ -420,4 +421,12 @@ text-align: center;
 .divEnviroment{
     width: 30%;
     height: 30%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.crearMapas{
+    width: 100%;
+    height: 0px;
+    background-image: radial-gradient(rgb(222, 220, 220), rgb(83, 79, 79));
 }

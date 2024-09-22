@@ -25,9 +25,9 @@ let personaje3
 
 localStorage.clear()
 
-const  getPersonaje = async (token, id, slot) => {
+const  getPersonaje = async (token, uid, slot) => {
     const pathImg = "assets/images/users/"
-    await fetch(`/api/personaje/?id=${id}`, {
+    await fetch(`/api/personaje/?uid=${uid}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -60,8 +60,8 @@ const  getPersonaje = async (token, id, slot) => {
 
     
 
-    const  getUsuario = async (token, id) => {
-        await fetch(`/api/user/?id=${id}`, {
+    const  getUsuario = async (token, uid) => {
+        await fetch(`/api/user/?uid=${uid}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -104,7 +104,6 @@ const verificar = async (token) => {
     }).then(resp => resp.json())
         .then(resp => {
             if (resp.token) {
-                // console.log("verificaste el token", resp.token)
                 dataToken = resp.token
             }
 
@@ -147,12 +146,12 @@ const post = async (e) => {
         
     }
 
-    const loginPersonaje = async (id) => {
+    const loginPersonaje = async (uid) => {
 
         await fetch('/api/personaje/login', {
             method: "POST",
             body: JSON.stringify({
-                personajeID:`${id}`
+                personajeID:`${uid}`
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -180,8 +179,8 @@ botonPj1.addEventListener('click', async(e) => {
     if(!personajeSelect){
         console.log("crear personaje")
     } else {
-       await loginPersonaje(personajeSelect.id)
-        window.location = 'chat.html';
+       await loginPersonaje(personajeSelect.uid)
+       window.location = 'chat.html';
     }
 })
 botonPj2.addEventListener('click', async(e) => {
@@ -191,7 +190,7 @@ botonPj2.addEventListener('click', async(e) => {
     if(!personajeSelect){
         console.log("crear personaje")
     } else{
-        await loginPersonaje(personajeSelect.id)
+        await loginPersonaje(personajeSelect.uid)
         window.location = 'chat.html';
     }
 })
@@ -202,7 +201,7 @@ botonPj3.addEventListener('click', async(e) => {
     if(!personajeSelect){
         console.log("crear personaje")
     } else {
-        await loginPersonaje(personajeSelect.id)
+        await loginPersonaje(personajeSelect.uid)
         window.location = 'chat.html';
     }
 })

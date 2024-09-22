@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="google-signin-client_id"
+        content="1023916028923-mnn067lcjn3itrr0lo8oj1s07kddgrcj.apps.googleusercontent.com">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <title>JRW</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- page css -->
+    <link href="css/pages/login-register-lock.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/chat.css" rel="stylesheet">
+
+    <!-- You can change the theme colors from here -->
+    <link href="css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="card-no-border">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">Cargando Crear Mundo...</p>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <section id="section">
+        <div class="cabeceraMenu" id="cabeceraMenu">
+            <div style=" width: 25%;"><button id="btnPersonajes" style=" width:100%; height: 100%;">Personajes</button>
+            </div>
+            <div style=" width: 25%;"><button id="btnCriaturas" style=" width:100%; height: 100%;">Criaturas</button>
+            </div>
+            <div style=" width: 25%;"><button id="btnMapas" style=" width:100%; height: 100%;">Mapas</button></div>
+            <div style=" width: 25%;"><button id="btnUsuarios" style=" width:100%; height: 100%;">Usuarios</button>
+            </div>
+            <div style=" width: 25%;"><button id="btnNPC" style=" width:100%; height: 100%;">NPC</button></div>
+        </div>
+
+
+        <div>
+            <div class="crearMapas" id="solapaPersonajes">
+            </div>
+            <div class="crearMapas" id="solapaCriaturas">
+            </div>
+            <!-- ----------------------------------------------- -->
+            <!-- EMPIEZA SOLAPA MAPAS -->
+            <div class="divMapa" id="solapaMapas" ;>
+                <!-- MINIMAPA -->
+                <div class="marcoMapa" id="marcoMapa" style="width: 70%; height: 0%;"></div>
+                <!-- CENTRO -->
+                <div class="marcoMapa" style="margin:0%;padding: 0%; width: 20%;">
+                    <br>
+                    <h2 style="font-size: 20px; margin-left: 10%; margin-top: 35px; color: beige;">Modificar Mundo</h2>
+                    <br>
+
+                    <input id="inpAncho" style="width:100px; margin-left: 27%;" placeholder="Ancho" type="text">
+                    <input id="inpAlto" style="width:100px; margin-left: 27%;" placeholder="Alto" type="text">
+                    <button id="CambiarTamaño" style="width:50%; margin: 10px;margin-left: 27%; height: 50px;" > Cambiar tamaño</button>
+                    <br>
+                    <input id="inpUid" style="width:150px; margin-left: 15%;" placeholder="uid" type="text">
+                    <input id="inpDesciptionID" style="width:150px; margin-left: 15%;" placeholder="DescripcionID" type=>
+                    <br>
+                    <input id="inpImagen" style="width:150px; margin-left: 15%;" placeholder="imagen" type="text">
+                    <br>
+                    <input id="inpEnviromentID" style="width:150px; margin-left: 15%;" placeholder="enviromentID" type="text">
+                    <input id="inpItemsID" style="width:150px; margin-left: 15%;" placeholder="ItemsID" type="text">
+                    <input id="inpCriaturasID" style="width:150px; margin-left: 15%;" placeholder="CriaturasID" type="text">
+                    <input id="inpNpcID" style="width:150px; margin-left: 15%;" placeholder="npcID" type="text">
+                    <input id="inpContainersID" style="width:150px; margin-left: 15%;" placeholder="ContainersID" type="text">
+                    <input id="inpNuevaUbicacion" style="width:150px;margin-top: 40px; margin-left: 15%;" placeholder="Nueva Ubicacion" type="text">
+
+                </div>
+                <!-- BOTONERA DERECHA-->
+                <div class="marcoMapa" style=" margin:0%;width: 20%;">
+                    <br>
+                    <button id="Recargar" style="width:80%; margin: 10px; height: 70px;" onclick="crearMapa()">Recargar</button>
+                    <button id="ObtenerUid" style="width:80%; margin: 10px; height: 70px;">Obtener uid</button>
+                    <button id="Crear" style="width:80%; margin: 10px; height: 70px;">Crear</button>
+                    <button id="Actualizar" style="width:80%; margin: 10px; height: 70px;">Actualizar</button>
+                    <button id="Borrar" style="width:80%; margin: 10px; height: 70px;">Borrar</button>
+                    <button id="CambiarUbicacion" style="width:80%; margin: 10px; height: 70px;">Cambiar Ubicacion</button>
+                </div>
+            </div>
+            <!-- TERMINA SOLAPA MAPAS -->
+            <div class="crearMapas" id="solapaUsuarios">
+            </div>
+            <div class="crearMapas" id="solapaNPC">
+            </div>
+
+
+            <div class="divPrincipal" style="background-image:url(../assets/images/background/crearMundo.jpg);">
+            </div>
+
+
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+
+
+    <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--Custom JavaScript -->
+    <script type="text/javascript">
+        $(function () {
+            $(".preloader").fadeOut();
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });  
+    </script>
+
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/crearMundo.js"></script>
+
+
+
+</body>
+
+</html>

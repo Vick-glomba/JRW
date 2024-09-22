@@ -15,7 +15,7 @@ const string = require('joi/lib/types/string/index.js');
 
 
 // Constantes exclusivas
-const numberFields = ['id']
+const numberFields = ['uid']
 
 const formatData = (data) => {
     for (const key in data) {
@@ -94,7 +94,7 @@ const add = async (data, ip) => {
             let verifyCode = {
                 date: dateUTC,
                 mail: result[0].mail,
-                id: result[0].id,
+                uid: result[0].uid,
                 ip: clientIp,
                 type: 'verify'
             }
@@ -180,15 +180,15 @@ const crearPersonaje = async (data) => {
             } else {
                 slotlibre = "personaje3"
             }
-            //actualizo el slot del user con el id de personaje creado
-            const slot = await DAL.updateValueToUser(slotlibre, personaje[0].id,
+            //actualizo el slot del user con el uid de personaje creado
+            const slot = await DAL.updateValueToUser(slotlibre, personaje[0].uid,
                  data.userID )
             return { 
                 status: "OK", result:
                 {userID: `${data.userID}`,
                 slot: `${slotlibre}`,
                 nombre: `${data.nombre}`,
-                personajeID: `${personaje[0].id}`,
+                personajeID: `${personaje[0].uid}`,
                 mapaID : `${data.mapID}`}
               }
         }
@@ -209,7 +209,7 @@ const update = async (data, token, ip) => {
             .regex(/[A-Za-z0-9\._%+\-]+@[A-Za-z0-9\.\-]+\.[A-Za-z]{2,}/),
         birthdate: joi.date().iso().required(),
         avatar: joi.string().max(254).required(),
-        id: joi.number().required()
+        uid: joi.number().required()
     }
     if (token.role === "C") {
         objetoJoi.password = joi.string().min(4).max(20).required()
@@ -229,16 +229,16 @@ const update = async (data, token, ip) => {
     }
 
     formatData(data);
-    //comprueba si hay alguien con ese nombre o correo que no sea el id ingresado
+    //comprueba si hay alguien con ese nombre o correo que no sea el uid ingresado
     const existeNombre = await DAL.getUsuarioByName(data);
     if (existeNombre[0]) {
-        if (existeNombre[0].id !== data.id) {
+        if (existeNombre[0].uid !== data.uid) {
             return { status: EXCEPTIONS.duplicatedData }
         }
     }
     const existeMail = await DAL.getUsuarioByMail(data.mail);
     if (existeMail[0]) {
-        if (existeMail[0].id !== data.id) {
+        if (existeMail[0].uid !== data.uid) {
             return { status: EXCEPTIONS.duplicatedData }
         }
     }
@@ -252,7 +252,7 @@ const update = async (data, token, ip) => {
         if (token.role === "E") {
             result = await DAL.updateEmpleado(data);
         }
-        if (token.role === "C" && token.id === data.id) {
+        if (token.role === "C" && token.uid === data.uid) {
             data.password = await hashUTF8(data.password)
             result = await DAL.updateCliente(data);
         }
@@ -264,7 +264,7 @@ const update = async (data, token, ip) => {
                 let verifyCode = {
                     date: dateUTC,
                     mail: result[0].mail,
-                    id: result[0].id,
+                    uid: result[0].uid,
                     ip: clientIp,
                     type: 'verify'
                 }
@@ -301,7 +301,7 @@ const update = async (data, token, ip) => {
 const remove = async (data, token) => {
 
     const joiValidation = await joiDataValidator(data, {
-        id: joi.number().required()
+        uid: joi.number().required()
     });
 
     if (joiValidation.hasOwnProperty('status')) {
@@ -318,7 +318,7 @@ const remove = async (data, token) => {
         if (token.role === "E") {
             result = await DAL.removeClienteEmpleado(data);
         }
-        if (token.role === "C" && token.id === data.id) {
+        if (token.role === "C" && token.uid === data.uid) {
             result = await DAL.removeClienteEmpleado(data);
         }
         if (result) {
@@ -348,7 +348,7 @@ const login = async (data) => {
         if (result[0]) {
             
             let userData = {
-                userID: result[0].id,
+                userID: result[0].uid,
                 username: result[0].username,
                 role: result[0].role,
                 avatar: result[0].avatar,
@@ -358,7 +358,7 @@ const login = async (data) => {
             let hash = await checkHash(data.password, result[0].password)
             if (hash) {
                 let resp = {
-                    "userID": result[0].id,
+                    "userID": result[0].uid,
                     "username": result[0].username,
                     "role": result[0].role,
                     "avatar": result[0].avatar,
@@ -392,7 +392,7 @@ const loginPersonaje = async (data) => {
            
             let userData = {
                 "userID": result[0].userid,
-                "personajeID": result[0].id
+                "personajeID": result[0].uid
             }
 
                 const token = jwtWrapper.signToken(userData)
@@ -408,14 +408,14 @@ const loginPersonaje = async (data) => {
 
 };
 
-//Obtiene usuario segun el id
-const getUser = async (id, token) => {
+//Obtiene usuario segun el uid
+const getUser = async (uid, token) => {
     let result;
     try {
-        result = await DAL.getUsuarioByID(Number(id));
+        result = await DAL.getUsuarioByID(Number(uid));
         if (result[0]) {
             if (token.role === "C") {
-                if (token.userID === Number(id)) {
+                if (token.userID === Number(uid)) {
                     delete result[0].password
                 } else {
                     result = {
@@ -435,10 +435,10 @@ const getUser = async (id, token) => {
     }
     return { status: EXCEPTIONS.invalidData }
 };
-const getPersonajeByID = async (id, token) => {
+const getPersonajeByID = async (uid, token) => {
     let result;
     try {
-        result = await DAL.getPersonajeByID(Number(id));
+        result = await DAL.getPersonajeByID(Number(uid));
         if (result[0] && result[0].userid === token.userID) {
             return { status: "OK", personaje: result[0] }
         }
@@ -448,10 +448,10 @@ const getPersonajeByID = async (id, token) => {
     }
     return { status: EXCEPTIONS.invalidData }
 };
-const getMapByID = async (id) => {
+const getMapByID = async (uid) => {
     let result;
     try {
-        result = await DAL.getMapByID(Number(id));
+        result = await DAL.getMapByID(Number(uid));
         if (result[0]) {
             return { status: "OK", map: result[0] }
         }
@@ -474,10 +474,10 @@ const getAll = async (tabla) => {
     }
    
 };
-const getBarrasByID = async (id) => {
+const getBarrasByID = async (uid) => {
     let result;
     try {
-        result = await DAL.getBarrasByID(Number(id));
+        result = await DAL.getBarrasByID(Number(uid));
         if (result[0]) {
             return { status: "OK", barras: result[0] }
         }
@@ -487,10 +487,10 @@ const getBarrasByID = async (id) => {
     }
     return { status: EXCEPTIONS.invalidData }
 };
-const getInventarioByID = async (id) => {
+const getInventarioByID = async (uid) => {
     let result;
     try {
-        result = await DAL.getInventarioByID(Number(id));
+        result = await DAL.getInventarioByID(Number(uid));
         if (result[0]) {
             return { status: "OK", inventario: result[0] }
         }
@@ -505,7 +505,7 @@ const updateStatus = async (data, token) => {
 
     let joiValidation = await joiDataValidator(data, {
         disabled: joi.boolean().required(),
-        id: joi.number().required()
+        uid: joi.number().required()
     });
 
     if (joiValidation.hasOwnProperty('status')) {
@@ -516,9 +516,9 @@ const updateStatus = async (data, token) => {
 
     let result;
     try {
-        const user = await DAL.getUsuarioByID(data.id)
+        const user = await DAL.getUsuarioByID(data.uid)
         if (user[0]) {
-            if (token.role === "C" && token.userID !== data.id) {
+            if (token.role === "C" && token.userID !== data.uid) {
                 return { status: EXCEPTIONS.unAuthorized }
             }
             if (token.role === "E") {
@@ -542,7 +542,7 @@ const updateRole = async (data) => {
 
     let joiValidation = await joiDataValidator(data, {
         role: joi.string().max(1).required().allow("A", "E", "C"),
-        id: joi.number().required()
+        uid: joi.number().required()
     });
 
     if (joiValidation.hasOwnProperty('status')) {
@@ -668,23 +668,23 @@ const recovery = async (data, ip) => {
         result = await DAL.getUsuarioByMail(data.mail);
         if (result[0]) {
             // compruebo si ya esta existe el registro en la tabla
-            const existeRecovery = await DAL.checkRecoveryMail(result[0].id)
+            const existeRecovery = await DAL.checkRecoveryMail(result[0].uid)
             if (existeRecovery) {
                 // si existe y done = "false" salgo del recovery con error
                 if (existeRecovery.done) {
                     //si existe y done = "true" lo actualizo a false
-                    await DAL.updateRecoveryMail(result[0].id, false)
+                    await DAL.updateRecoveryMail(result[0].uid, false)
                 }
             } else {
                 //si no existe el registro lo creo y pongo done = "false"
-                await DAL.addRecoveryMail(result[0].id)
+                await DAL.addRecoveryMail(result[0].uid)
             }
             const clientIp = ip;
             const dateUTC = moment().utc().format('YYYY-MM-DD HH:mm:ss')
             let recoveryCode = {
                 date: dateUTC,
                 mail: result[0].mail,
-                id: result[0].id,
+                uid: result[0].uid,
                 ip: clientIp,
                 type: 'recovery'
             };
@@ -731,7 +731,7 @@ const changePassword = async (query) => {
         result = await decrypt(query.recoveryCode)
         if (result && result.type === "recovery") {
             // compruebo si existe el registro en la tabla recoveryMails
-            const existeRecovery = await DAL.checkRecoveryMail(result.id)
+            const existeRecovery = await DAL.checkRecoveryMail(result.uid)
             //si no existe el registro, o existe y done = true
             if (!existeRecovery || existeRecovery.done) {
                 return { status: EXCEPTIONS.recoveryInvalid }
@@ -742,7 +742,7 @@ const changePassword = async (query) => {
             if (!cambio) {
                 return { status: EXCEPTIONS.invalidData }
             }
-            const actualizo = await DAL.updateRecoveryMail(result.id, true)
+            const actualizo = await DAL.updateRecoveryMail(result.uid, true)
             if (!actualizo) {
                 return { status: "NO ACTUALIZO RECOVERYMAIL" }
             }
@@ -769,7 +769,7 @@ const verify = async (query) => {
     try {
         result = await decrypt(query.verifyCode)
         if (result && result.type === "verify") {
-            const userIsVerified = await DAL.userIsVerified(result.id)
+            const userIsVerified = await DAL.userIsVerified(result.uid)
             if (userIsVerified) {
                 return { status: EXCEPTIONS.invalidData }
             }

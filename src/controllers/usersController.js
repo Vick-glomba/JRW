@@ -396,7 +396,7 @@ const getUser = async (req, res, next) => {
         return;
     }
     try {
-        const serviceResponse = await Service.getUser(req.query.id, req.token);
+        const serviceResponse = await Service.getUser(req.query.uid, req.token);
         switch (serviceResponse.status) {
             case 'OK':
                 res.status(200).json(serviceResponse); // Codigo HTTP 200: OK
@@ -426,7 +426,7 @@ const getPersonajeByID = async (req, res, next) => {
         return;
     }
     try {
-        const serviceResponse = await Service.getPersonajeByID(req.query.id, req.token);
+        const serviceResponse = await Service.getPersonajeByID(req.query.uid, req.token);
         switch (serviceResponse.status) {
             case 'OK':
                 res.status(200).json(serviceResponse); // Codigo HTTP 200: OK
@@ -456,7 +456,7 @@ const getMapByID = async (req, res, next) => {
         return;
     }
     try {
-        const serviceResponse = await Service.getMapByID(req.query.id, req.token);
+        const serviceResponse = await Service.getMapByID(req.query.uid, req.token);
         switch (serviceResponse.status) {
             case 'OK':
                 res.status(200).json(serviceResponse); // Codigo HTTP 200: OK
@@ -486,7 +486,7 @@ const getBarrasByID = async (req, res, next) => {
         return;
     }
     try {
-        const serviceResponse = await Service.getBarrasByID(req.query.id, req.token);
+        const serviceResponse = await Service.getBarrasByID(req.query.uid, req.token);
         switch (serviceResponse.status) {
             case 'OK':
                 res.status(200).json(serviceResponse); // Codigo HTTP 200: OK
@@ -516,7 +516,7 @@ const getInventarioByID = async (req, res, next) => {
         return;
     }
     try {
-        const serviceResponse = await Service.getInventarioByID(req.query.id, req.token);
+        const serviceResponse = await Service.getInventarioByID(req.query.uid, req.token);
         switch (serviceResponse.status) {
             case 'OK':
                 res.status(200).json(serviceResponse); // Codigo HTTP 200: OK

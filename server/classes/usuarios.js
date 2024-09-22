@@ -4,21 +4,6 @@ const usersService = require("../../src/services/usersService");
 
 
 
-//creador tabla para ver los mapas y poder analizar si pasa bien de mapa a mapa
-const ancho = 10
-const alto = 20
-const mapasTotal = ancho * alto
-let arrayFilas = []
-let fila = []
-
-    for (let i = 1; i <= mapasTotal; i++) {
-        fila.push(i) ;
-        if(i%ancho === 0){
-            arrayFilas.push(fila)
-            fila = []
-        }   
-    }   
-    console.table(arrayFilas)
  
 
 
@@ -27,7 +12,7 @@ class Usuarios {
     constructor() {
         this.personas = [];
         this.mundo = []
-        this.mundo.dimensiones = [ ancho, alto]
+        this.mundo.dimensiones = [ 10, 20]
         this.mundo.personajes = {};
         this.mundo.barras = {};
         this.mundo.maps = {};
@@ -42,6 +27,21 @@ class Usuarios {
         console.log("ancho:", this.mundo.dimensiones[0], "alto:" ,this.mundo.dimensiones[1])
     }
     
+    cambiarUbicacion(viejaUid,nuevaUid) {  
+      
+       let mapaViejo =this.mundo.maps[viejaUid]
+       mapaViejo.uid = nuevaUid
+       delete this.mundo.maps[viejaUid]
+      
+        this.mundo.maps[mapaViejo.uid] = mapaViejo     
+        return 
+    }
+    cambiarTamaño(ancho, alto) {
+   
+        this.mundo.dimensiones = [ancho ,alto ]
+        console.log("ahora el mapa mide:", this.mundo.dimensiones)
+        return 
+    }
     actualizarPersonaje(personajeID, mapaVa) {
          this.mundo.personajes[personajeID ].mapid = mapaVa
     }
@@ -55,24 +55,24 @@ class Usuarios {
             enviroments: this.mundo.enviroments
         }
     }
-    obtener(tabla, id) {
-        return this.mundo[tabla][id ]
+    obtener(tabla, uid) {
+        return this.mundo[tabla][uid]
     }
     obtenerTabla(tabla) {
         return this.mundo[tabla]
     }
 
 
-    agregarPersona(id, nombre, sala) {
+    agregarPersona(uid, nombre, sala) {
 
-        let persona = { id, nombre, sala};
+        let persona = { uid, nombre, sala};
 
         this.personas.push(persona);
         return this.personas;
     }
 
-    getPersona(id) {
-        let persona = this.personas.filter(persona => persona.id === id)[0]
+    getPersona(uid) {
+        let persona = this.personas.filter(persona => persona.uid === uid)[0]
         return persona;
     }
 
@@ -84,9 +84,9 @@ class Usuarios {
         let personasEnSala = this.personas.filter(persona => persona.sala === sala);
         return personasEnSala;
     }
-    borrarPersona(id) {
-        let personaBorrada = this.getPersona(id);
-        this.personas = this.personas.filter(persona => persona.id != id);
+    borrarPersona(uid) {
+        let personaBorrada = this.getPersona(uid);
+        this.personas = this.personas.filter(persona => persona.uid != uid);
 
         return personaBorrada;
     }
@@ -123,7 +123,7 @@ class Usuarios {
 
         if (respTabla.result[0]) {
         respTabla.result.forEach( indice => {
-           arrayToObject[indice.id] = indice      
+           arrayToObject[indice.uid] = indice      
         });       
             this.mundo[tabla] = arrayToObject  
         } else {

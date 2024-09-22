@@ -41,20 +41,22 @@ socket.on('connect', async function () {
 
     if (!token) {
         localStorage.clear()
-        window.location = 'index.html';
+   //     window.location = 'index.html';
     }
 
     await verificar(tokenPJ)
 
     if (!dataToken) {
         localStorage.clear()
-        window.location = 'index.html';
+      //  window.location = 'index.html';
     }
 
 
     socket.emit('obtenerPersonaje', dataToken.personajeID, function ({ pj }) {
         if (!pj) { window.location = "index.html" }
         personaje = pj
+    
+        
 
         socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
             ancho = dimensiones.ancho
@@ -75,20 +77,26 @@ socket.on('connect', async function () {
                 <div class="filaMapa" height="${altura}px">`
                 for (let i = 0; i < ancho; i++) {
                     cantidadMapas += 1
-                    if(mapas[cantidadMapas] && ecosistemas[mapas[cantidadMapas].enviromentid]){
-                        imagen = ecosistemas[mapas[cantidadMapas].enviromentid].imagen        
+                    let numeroMapa= cantidadMapas
+                    if(mapas[cantidadMapas] ){
+                        if(ecosistemas[mapas[cantidadMapas].enviromentid]){
+                            imagen = ecosistemas[mapas[cantidadMapas].enviromentid].imagen        
+                        } else {
+                            imagen = "fondonegro.jpg"
+                        }
                     } else {
-                        imagen = "fondonegro.jpg"
+                        imagen = "agua2.jpg"
+                        numeroMapa= ""
                     }
                     htmlMapa += `
-                    <div style=" width:${anchura}%; height:${altura}px; border-color: rgb(0,0,0); border-width: 5px; border-style: double; background-color: rgba(130, 132, 17, 0.77);"><div style= "width:100%; height:100%; background-size: 10rem;background-repeat: no-repeat; background-image:url(../assets/images/enviroments/${imagen}); overload:visible "><p style="color: white;	-webkit-text-stroke: 1px #F8F8F7; text-shadow: 0px 1px 4px #23430C; margin:0%;padding-top:15%; font-size: 0.8rem; width:100%; height:100%; text-align: center; ">${cantidadMapas}</p></div></div>`
+                    <div style=" width:${anchura}%; height:${altura}px; border-color: rgb(0,0,0); border-width: 5px; border-style: double; background-color: rgba(130, 132, 17, 0.77);"><div style= "width:100%; height:100%; background-size: 10rem;background-repeat: no-repeat; background-image:url(../assets/images/enviroments/${imagen}); overload:visible "><p style="color: white;	-webkit-text-stroke: 1px #F8F8F7; text-shadow: 0px 1px 4px #23430C; margin:0%;padding-top:15%; font-size: 0.8rem; width:100%; height:100%; text-align: center; ">${numeroMapa}</p></div></div>`
                 }
                 htmlMapa += `
                 </div>`
                 //dejo la imagen de mapa por si la necesito
                 //<img src="../assets/images/maps/${imagenMapa}" style="width:100%; height:100%; overflow: visible;">
             }
-            console.log(cantidadMapas)
+          
           //  console.log(htmlMapa)
             $("#marcoMapa").html(htmlMapa)
             cabecera.height(0)

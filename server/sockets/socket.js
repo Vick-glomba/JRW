@@ -28,12 +28,20 @@ io.on('connection', (client) => {
     client.on('obtenerMundo', (callback) => {
         return callback(usuarios.obtenerMundo())
     })
-    client.on('obtenerPersonaje', async (id, callback) => {
+
+    client.on('cambiarTamaño', (anchoNuevo,altoNuevo,callback) => {
+         return callback(usuarios.cambiarTamaño(anchoNuevo,altoNuevo))
+    })
+    client.on('cambiarUbicacion', (viejaUid,nuevaUid,callback) => {
+         return callback(usuarios.cambiarUbicacion(viejaUid,nuevaUid))
+    })
+
+    client.on('obtenerPersonaje', async (uid, callback) => {
         let pj
         let barras
-        pj = usuarios.obtener("personajes", id)
-        barras = usuarios.obtener("barras", id)
-        inventario = usuarios.obtener("inventario", id)
+        pj = usuarios.obtener("personajes", uid)
+        barras = usuarios.obtener("barras", uid)
+        inventario = usuarios.obtener("inventario", uid)
 
         return callback({ pj, barras, inventario })
     })
