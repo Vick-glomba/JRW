@@ -42,6 +42,18 @@ class Usuarios {
         console.log("ahora el mapa mide:", this.mundo.dimensiones)
         return 
     }
+    actualizarMapa(mapaActualizado) {  
+        this.mundo.maps[mapaActualizado.uid] = mapaActualizado   
+        return 
+    }
+    crearMapa(mapaNuevo) {  
+        this.mundo.maps[mapaNuevo.uid] = mapaNuevo   
+        return 
+    }
+    borrarMapa(mapaID) {  
+        delete this.mundo.maps[mapaID]   
+        return 
+    }
     actualizarPersonaje(personajeID, mapaVa) {
          this.mundo.personajes[personajeID ].mapid = mapaVa
     }

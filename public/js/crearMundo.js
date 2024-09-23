@@ -34,6 +34,9 @@ const ObtenerUid = $('#ObtenerUid')
 const Crear = $('#Crear')
 const Actualizar = $('#Actualizar')
 const Borrar = $('#Borrar')
+const fondo = $('#fondo')
+const exito = $('#exito')
+const fallo = $('#fallo')
 
 const inpNuevaUbicacion = $('#inpNuevaUbicacion')
 const CambiarUbicacion = $('#CambiarUbicacion')
@@ -82,7 +85,8 @@ const crearMapa = async () => {
         const anchura = 100 / ancho
         const altura = anchura * 5
         const tamañoLetra = 180 / ancho
-
+        inpAncho.val(ancho)
+        inpAlto.val(alto)
 
         for (let i = 0; i < alto; i++) {
             htmlMapa += `
@@ -98,10 +102,10 @@ const crearMapa = async () => {
                     }
                 } else {
                     imagen = "agua2.jpg"
-                    numeroMapa = ""
+                    // numeroMapa = ""
                 }
                 htmlMapa += `
-                <div style=" width:${anchura}%; height:${altura}px; border-color: rgb(0,0,0); border-width: 5px; border-style: double; background-color: rgba(130, 132, 17, 0.77);"><div style= "width:100%; height:100%; background-size: 10rem;background-repeat: no-repeat; background-image:url(../assets/images/enviroments/${imagen}); overload:visible "><p style="color: white;	-webkit-text-stroke: 1px #F8F8F7; text-shadow: 0px 1px 4px #23430C; margin:0%;padding-top: 15%; font-size: ${tamañoLetra}px; width:100%; height:100%; text-align: center; ">${numeroMapa}</p></div></div>`
+                <div style=" width:70px; height:50px; border-color: rgb(0,0,0); border-width: 5px; border-style: double; background-color: rgba(130, 132, 17, 0.77);"><div style= "width:60px; height:40px; background-size: 10rem;background-repeat: no-repeat; background-image:url(../assets/images/enviroments/${imagen}); overload:visible "><p style="color: white;	-webkit-text-stroke: 2px rgb(50,50,50); text-shadow: 2px 2px 2px rgb(0,0,0); margin:0%;padding-top: 15%; font-size: 1rem; width:100%; height:100%; text-align: center; ">${numeroMapa}</p></div></div>`
             }
             htmlMapa += `
             </div>`
@@ -113,7 +117,7 @@ const crearMapa = async () => {
         marcoMapa.html(htmlMapa)
 
 
-        $('html').scrollTop(0)
+        // $('html').scrollTop(0)
 
 
 
@@ -127,14 +131,14 @@ socket.on('connect', async function () {
 
     if (!token) {
         localStorage.clear()
-        //     window.location = 'index.html';
+        window.location = 'index.html';
     }
 
     await verificar(token)
 
     if (!dataToken) {
         localStorage.clear()
-        //  window.location = 'index.html';
+        window.location = 'index.html';
     }
 
 
@@ -155,10 +159,12 @@ let abierto = false
 btnPersonajes.on("click", () => {
     if (abierto) {
         solapaPersonajes.height(0)
+        fondo.height('450px')
         $('html').scrollTop(0)
         abierto = false
     } else {
         solapaPersonajes.height('100%')
+        fondo.height('0px')
         abierto = true
     }
 })
@@ -166,10 +172,12 @@ let abierto1 = false
 btnCriaturas.on("click", () => {
     if (abierto1) {
         solapaCriaturas.height(0)
+        fondo.height('450px')
         $('html').scrollTop(0)
         abierto1 = false
     } else {
         solapaCriaturas.height('100%')
+        fondo.height('0px')
         abierto1 = true
     }
 })
@@ -178,10 +186,12 @@ btnMapas.on("click", () => {
 
     if (abierto2) {
         solapaMapas.height(0)
+        fondo.height('450px')
         $('html').scrollTop(0)
         abierto2 = false
     } else {
         solapaMapas.height('100%')
+        fondo.height('0px')
         abierto2 = true
     }
 })
@@ -189,10 +199,12 @@ let abierto3 = false
 btnUsuarios.on("click", () => {
     if (abierto3) {
         solapaUsuarios.height(0)
+        fondo.height('450px')
         $('html').scrollTop(0)
         abierto3 = false
     } else {
         solapaUsuarios.height('100%')
+        fondo.height('0px')
         abierto3 = true
     }
 })
@@ -200,10 +212,12 @@ let abierto4 = false
 btnNPC.on("click", () => {
     if (abierto4) {
         solapaNPC.height(0)
+        fondo.height('450px')
         $('html').scrollTop(0)
         abierto4 = false
     } else {
-        solapaNPC.height('100%px')
+        solapaNPC.height('100%')
+        fondo.height('0px')
         abierto4 = true
     }
 })
@@ -223,14 +237,32 @@ btnNPC.on("click", () => {
 
 
 CambiarUbicacion.on("click", () => {
-  
-    let viejaUid = inpUid.val()
-    let nuevaUid = inpNuevaUbicacion.val()
-    socket.emit('cambiarUbicacion',viejaUid ,nuevaUid, () => {
-        crearMapa();
+
+    socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
+        let mapas = maps
+        if (!mapas[inpUid.val()]) {
+            exito.text(" ")
+            fallo.text("El mapa no existe")
+        }else{
+
+            if (!mapas[inpNuevaUbicacion.val()] ) {
+                let viejaUid = inpUid.val()
+                let nuevaUid = inpNuevaUbicacion.val()
+                socket.emit('cambiarUbicacion', viejaUid, nuevaUid, () => {
+                crearMapa();
+                fallo.text(" ")
+                exito.text("Exitoso")
+            })
+            
+        } else {
+            exito.text(" ")
+            fallo.text("No se puede cambiar, el lugar esta ocupado")
+        }
+    }
     })
 
 })
+
 CambiarTamaño.on("click", () => {
     let anchoNuevo = inpAncho.val()
     let altoNuevo = inpAlto.val()
@@ -241,9 +273,8 @@ CambiarTamaño.on("click", () => {
 })
 ObtenerUid.on("click", () => {
     socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
-        mapas = maps
-        console.log(mapas[inpUid.val()])
-        if (mapas[inpUid.val()]) {           
+        let mapas = maps
+        if (mapas[inpUid.val()]) {
             inpDesciptionID.val(mapas[inpUid.val()].descripcionid)
             inpImagen.val(mapas[inpUid.val()].imagen)
             inpEnviromentID.val(mapas[inpUid.val()].enviromentid)
@@ -251,29 +282,83 @@ ObtenerUid.on("click", () => {
             inpCriaturasID.val(mapas[inpUid.val()].criaturasid)
             inpNpcID.val(mapas[inpUid.val()].npcid)
             inpContainersID.val(mapas[inpUid.val()].containersid)
+            fallo.text(" ")
+            exito.text("Exitoso")
         } else {
-
+            exito.text(" ")
+            fallo.text("El mapa no existe")
+            console.log("El mapa no existe")
         }
     })
 })
-// Crear.on("click", () => {
-//     if () {
+Actualizar.on("click", () => {
+    socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
+        let mapas = maps
+        if (mapas[inpUid.val()]) {
 
-//     } else {
+            let mapaActualizado = mapas[inpUid.val()]
 
-//     }
-// })
-// Actualizar.on("click", () => {
-//     if () {
+            mapaActualizado.descripcionid = Number(inpDesciptionID.val())
+            mapaActualizado.imagen = inpImagen.val()
+            mapaActualizado.enviromentid = inpEnviromentID.val().split(",")
+            mapaActualizado.itemsid = inpItemsID.val().split(",")
+            mapaActualizado.criaturasid = inpCriaturasID.val().split(",")
+            mapaActualizado.npcid = inpNpcID.val().split(",")
+            mapaActualizado.inpContainersID = inpUid.val().split(",")
 
-//     } else {
+            socket.emit('actualizarMapa', mapaActualizado, () => {
+                crearMapa();
+                fallo.text(" ")
+                exito.text("Exitoso")
+            })
+        } else {
+            exito.text(" ")
+            fallo.text("El mapa no existe")
+            console.log("no existe el mapa que queres actualizar")
+        }
+    })
+})
+Crear.on("click", () => {
+    socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
+        let mapas = maps
+        if (!mapas[inpUid.val()]) {
 
-//     }
-// })
-// Borrar.on("click", () => {
-//     if () {
+            let mapaNuevo = {}
 
-//     } else {
+            mapaNuevo.uid = Number(inpUid.val())
+            mapaNuevo.descripcionid = Number(inpDesciptionID.val())
+            mapaNuevo.imagen = inpImagen.val()
+            mapaNuevo.enviromentid = Number(inpEnviromentID.val())
+            mapaNuevo.itemsid = Number(inpItemsID.val())
+            mapaNuevo.criaturasid = Number(inpCriaturasID.val())
+            mapaNuevo.npcid = Number(inpNpcID.val())
+            mapaNuevo.inpContainersID = Number(inpUid.val())
 
-//     }
-// })
+            socket.emit('crearMapa', mapaNuevo, () => {
+                crearMapa();
+                fallo.text(" ")
+                exito.text("Exitoso")
+            })
+        } else {
+            exito.text(" ")
+            fallo.text("El mapa ya existe")
+            console.log("no se puede crear, el mapa ya existe")
+        }
+    })
+})
+Borrar.on("click", () => {
+    socket.emit('obtenerMundo', function ({ dimensiones, maps, enviroments }) {
+        let mapas = maps
+        if (mapas[inpUid.val()]) {
+            socket.emit('borrarMapa', inpUid.val(), () => {
+                crearMapa();
+                fallo.text(" ")
+                exito.text("Exitoso")
+            })
+        } else {
+            exito.text(" ")
+            fallo.text("No se puede borrar, el mapa no existe")
+            console.log("No se puede borrar, el mapa no existe")
+        }
+    })
+})

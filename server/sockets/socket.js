@@ -32,6 +32,15 @@ io.on('connection', (client) => {
     client.on('cambiarTamaño', (anchoNuevo,altoNuevo,callback) => {
          return callback(usuarios.cambiarTamaño(anchoNuevo,altoNuevo))
     })
+    client.on('actualizarMapa', (mapaActualizado,callback) => {
+         return callback(usuarios.actualizarMapa(mapaActualizado))
+    })
+    client.on('crearMapa', (mapaNuevo,callback) => {
+         return callback(usuarios.crearMapa(mapaNuevo))
+    })
+    client.on('borrarMapa', (mapaID,callback) => {
+         return callback(usuarios.borrarMapa(mapaID))
+    })
     client.on('cambiarUbicacion', (viejaUid,nuevaUid,callback) => {
          return callback(usuarios.cambiarUbicacion(viejaUid,nuevaUid))
     })

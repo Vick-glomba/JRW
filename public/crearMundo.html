@@ -46,7 +46,7 @@
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
     <section id="section">
-        <div class="cabeceraMenu" id="cabeceraMenu">
+        <div class="cabeceraMenu"  style="height: 50px;" id="cabeceraMenu">
             <div style=" width: 25%;"><button id="btnPersonajes" style=" width:100%; height: 100%;">Personajes</button>
             </div>
             <div style=" width: 25%;"><button id="btnCriaturas" style=" width:100%; height: 100%;">Criaturas</button>
@@ -67,39 +67,79 @@
             <!-- EMPIEZA SOLAPA MAPAS -->
             <div class="divMapa" id="solapaMapas" ;>
                 <!-- MINIMAPA -->
-                <div class="marcoMapa" id="marcoMapa" style="width: 70%; height: 0%;"></div>
+                 <div class="marcoMapa" style="width: 720px;margin:20px ;margin-top: 20px;">
+                     <div class="marcoMapa" id="marcoMapa" style="margin: 0%; width: 720px;overflow: scroll; height: 450px;"></div>               
+                 </div>
                 <!-- CENTRO -->
-                <div class="marcoMapa" style="margin:0%;padding: 0%; width: 20%;">
-                    <br>
-                    <h2 style="font-size: 20px; margin-left: 10%; margin-top: 35px; color: beige;">Modificar Mundo</h2>
-                    <br>
+                <div class="" style="overflow: hidden; margin:10px;margin-top: 20px; padding: 0%; width: 20%;">
+                    
+                    <div style="display: flex; width: 100%;">
+                        <div style="width: 50%; ">
+                            <input id="inpAncho" style="margin-left: 5%; width: 80%; height: 50%;" placeholder="Ancho"
+                                type="text">
+                            <input id="inpAlto" style="margin-left: 5%; width:80%; height: 50%;" placeholder="Alto"
+                                type="text">
 
-                    <input id="inpAncho" style="width:100px; margin-left: 27%;" placeholder="Ancho" type="text">
-                    <input id="inpAlto" style="width:100px; margin-left: 27%;" placeholder="Alto" type="text">
-                    <button id="CambiarTamaño" style="width:50%; margin: 10px;margin-left: 27%; height: 50px;" > Cambiar tamaño</button>
+                        </div>
+
+                        <button id="CambiarTamaño" style="width:80%; margin-right: 10%; height: 50px;"> Cambiar
+                            tamaño</button>
+                    </div>
                     <br>
-                    <input id="inpUid" style="width:150px; margin-left: 15%;" placeholder="uid" type="text">
-                    <input id="inpDesciptionID" style="width:150px; margin-left: 15%;" placeholder="DescripcionID" type=>
+                    <div style="display: flex;">
+                        <p style="width:50% ; margin: 5px; color: beige; text-align: center; font-size: 13px;">NuevoID:
+                        </p>
+                        <input id="inpNuevaUbicacion" style="width:30%;" placeholder="ID" type="text">
+                    </div>
+                    <div style="display: flex;">
+                        <p style="width:50% ; margin: 5px; color: beige; text-align: center; font-size: 13px;">ID:</p>
+                        <input id="inpUid" style="width:30%;" placeholder="ID" type="text">
+                    </div>
+                    <div style="display: flex;">
+                        <p style="width:50% ;  margin: 5px; color: beige; text-align: center; font-size: 13px;">
+                            DesripcionID:</p>
+                        <input id="inpDesciptionID" style="width:30%; " placeholder="ID" type=>
+                    </div>
+                    <div style="display: flex;">
+                        <p style="width:50% ;  margin: 5px; color: beige; text-align: center; font-size: 13px;">
+                            EnviromentID:</p>
+                        <input id="inpEnviromentID" style="width:30%; " placeholder="ID" type="text">
+                    </div>
+                    <p style="width:100% ; margin: 0px; color: beige; text-align: center; font-size: 13px;">Imagen:</p>
+                    <input id="inpImagen" style="width:150px; margin-left: 15%;" placeholder="imagen.jpg" type="text">
                     <br>
-                    <input id="inpImagen" style="width:150px; margin-left: 15%;" placeholder="imagen" type="text">
-                    <br>
-                    <input id="inpEnviromentID" style="width:150px; margin-left: 15%;" placeholder="enviromentID" type="text">
+                    <p style="width:100% ; margin: 0px; color: beige; text-align: center; font-size: 13px;">ItemsID:</p>
                     <input id="inpItemsID" style="width:150px; margin-left: 15%;" placeholder="ItemsID" type="text">
-                    <input id="inpCriaturasID" style="width:150px; margin-left: 15%;" placeholder="CriaturasID" type="text">
+                    <p style="width:100% ; margin: 0px; color: beige; text-align: center; font-size: 13px;">CriaturasID:
+                    </p>
+                    <input id="inpCriaturasID" style="width:150px; margin-left: 15%;" placeholder="CriaturasID"
+                        type="text">
+                    <p style="width:100% ; margin: 0px; color: beige; text-align: center; font-size: 13px;">NPCID:</p>
                     <input id="inpNpcID" style="width:150px; margin-left: 15%;" placeholder="npcID" type="text">
-                    <input id="inpContainersID" style="width:150px; margin-left: 15%;" placeholder="ContainersID" type="text">
-                    <input id="inpNuevaUbicacion" style="width:150px;margin-top: 40px; margin-left: 15%;" placeholder="Nueva Ubicacion" type="text">
+                    <p style="width:100% ; margin: 0px; color: beige; text-align: center; font-size: 13px;">
+                        ContainersID:</p>
+                    <input id="inpContainersID" style="width:150px; margin-left: 15%;" placeholder="ContainersID"
+                        type="text">
+
 
                 </div>
                 <!-- BOTONERA DERECHA-->
-                <div class="marcoMapa" style=" margin:0%;width: 20%;">
-                    <br>
-                    <button id="Recargar" style="width:80%; margin: 10px; height: 70px;" onclick="crearMapa()">Recargar</button>
-                    <button id="ObtenerUid" style="width:80%; margin: 10px; height: 70px;">Obtener uid</button>
-                    <button id="Crear" style="width:80%; margin: 10px; height: 70px;">Crear</button>
-                    <button id="Actualizar" style="width:80%; margin: 10px; height: 70px;">Actualizar</button>
-                    <button id="Borrar" style="width:80%; margin: 10px; height: 70px;">Borrar</button>
-                    <button id="CambiarUbicacion" style="width:80%; margin: 10px; height: 70px;">Cambiar Ubicacion</button>
+                <div class="marcoMapa" style=" margin:0%;width: 15%;">
+                    
+                    <button id="Recargar" style="width:80%; margin: 10px;  height: 40px;"
+                        onclick="crearMapa(), fallo.text(' '),
+                        exito.text(' ')">Recargar</button>
+                    <button id="ObtenerUid" style="width:80%; margin: 10px; height: 40px;">Obtener uid</button>
+                    <div style="width: 80%; height: 80px;">
+                        <p id="exito" style="margin: 0%; text-align: center; margin-top: 15%; color:rgb(48, 216, 42);"></p>
+                        <p id="fallo" style="text-align: center; margin-top: 15%; color:rgb(194, 19, 19);"></p>
+                    </div>
+                    <button id="CambiarUbicacion" style="width:80%; margin: 10px; height: 60px;">Cambiar
+                        Ubicacion</button>
+                    <button id="Actualizar" style="width:80%; margin: 10px; height: 40px;">Actualizar</button>
+                    <button id="Crear" style="width:80%; margin: 10px; height: 40px;">Crear</button>
+                    <button id="Borrar" style="width:80%; margin: 10px; height: 40px;">Borrar</button>
+
                 </div>
             </div>
             <!-- TERMINA SOLAPA MAPAS -->
@@ -109,7 +149,7 @@
             </div>
 
 
-            <div class="divPrincipal" style="background-image:url(../assets/images/background/crearMundo.jpg);">
+            <div class="divPrincipal" id="fondo" style="height: 450px; background-image:url(../assets/images/background/crearMundo.jpg);">
             </div>
 
 
