@@ -11,24 +11,24 @@ let ecosistemas;
 const interface = async () => {
 
     socket.emit('obtenerInterface', personaje.mapid, ({ items, maps, description, personasMapa }) => {
-        
+
         mapas = maps
 
         socket.emit('obtenerPersonaje', dataToken.personajeID, function ({ pj, barras, inventario }) {
-           
-             if (!pj || !barras || !inventario) {
-                 window.location = 'index.html';
-             }
+
+            if (!pj || !barras || !inventario) {
+                window.location = 'index.html';
+            }
 
             personaje = pj
             personaje.barras = barras
             personaje.inventario = inventario
 
-           
+
 
             //cargo imagen de mapa
             mapa.attr("src", pathImgMaps + maps[personaje.mapid].imagen)
-            
+
             imgPJ.attr("src", pathImgUsers + personaje.imagen)
             nombrePJ.text(personaje.nombre)
             nivelPJ.text(personaje.nivel)
@@ -39,62 +39,62 @@ const interface = async () => {
 
 
 
-            if (items[personaje.inventario.slot1 ] !== undefined) {
-                slot1.attr('src', pathImgItems + items[personaje.inventario.slot1 ].imagen)
+            if (items[personaje.inventario.slot1] !== undefined) {
+                slot1.attr('src', pathImgItems + items[personaje.inventario.slot1].imagen)
             }
-            if (items[personaje.inventario.slot2 ] !== undefined) {
-                slot2.attr('src', pathImgItems + items[personaje.inventario.slot2 ].imagen)
+            if (items[personaje.inventario.slot2] !== undefined) {
+                slot2.attr('src', pathImgItems + items[personaje.inventario.slot2].imagen)
             }
-            if (items[personaje.inventario.slot3 ] !== undefined) {
-                slot3.attr('src', pathImgItems + items[personaje.inventario.slot3 ].imagen)
+            if (items[personaje.inventario.slot3] !== undefined) {
+                slot3.attr('src', pathImgItems + items[personaje.inventario.slot3].imagen)
             }
-            if (items[personaje.inventario.slot4 ] !== undefined) {
-                slot4.attr('src', pathImgItems + items[personaje.inventario.slot4 ].imagen)
+            if (items[personaje.inventario.slot4] !== undefined) {
+                slot4.attr('src', pathImgItems + items[personaje.inventario.slot4].imagen)
             }
-            if (items[personaje.inventario.slot5 ] !== undefined) {
-                slot5.attr('src', pathImgItems + items[personaje.inventario.slot5 ].imagen)
+            if (items[personaje.inventario.slot5] !== undefined) {
+                slot5.attr('src', pathImgItems + items[personaje.inventario.slot5].imagen)
             }
-            if (items[personaje.inventario.slot6 ] !== undefined) {
-                slot6.attr('src', pathImgItems + items[personaje.inventario.slot6 ].imagen)
+            if (items[personaje.inventario.slot6] !== undefined) {
+                slot6.attr('src', pathImgItems + items[personaje.inventario.slot6].imagen)
             }
-            if (items[personaje.inventario.slot7 ] !== undefined) {
-                slot7.attr('src', pathImgItems + items[personaje.inventario.slot7 ].imagen)
+            if (items[personaje.inventario.slot7] !== undefined) {
+                slot7.attr('src', pathImgItems + items[personaje.inventario.slot7].imagen)
             }
-            if (items[personaje.inventario.slot8 ] !== undefined) {
-                slot8.attr('src', pathImgItems + items[personaje.inventario.slot8 ].imagen)
+            if (items[personaje.inventario.slot8] !== undefined) {
+                slot8.attr('src', pathImgItems + items[personaje.inventario.slot8].imagen)
             }
-            if (items[personaje.inventario.slot9 ] !== undefined) {
-                slot9.attr('src', pathImgItems + items[personaje.inventario.slot9 ].imagen)
+            if (items[personaje.inventario.slot9] !== undefined) {
+                slot9.attr('src', pathImgItems + items[personaje.inventario.slot9].imagen)
             }
-            if (items[personaje.inventario.slot10 ] !== undefined) {
-                slot10.attr('src', pathImgItems + items[personaje.inventario.slot10 ].imagen)
+            if (items[personaje.inventario.slot10] !== undefined) {
+                slot10.attr('src', pathImgItems + items[personaje.inventario.slot10].imagen)
             }
-            if (items[personaje.inventario.slot11 ] !== undefined) {
-                slot11.attr('src', pathImgItems + items[personaje.inventario.slot11 ].imagen)
+            if (items[personaje.inventario.slot11] !== undefined) {
+                slot11.attr('src', pathImgItems + items[personaje.inventario.slot11].imagen)
             }
-            if (items[personaje.inventario.slot12 ] !== undefined) {
-                slot12.attr('src', pathImgItems + items[personaje.inventario.slot12 ].imagen)
+            if (items[personaje.inventario.slot12] !== undefined) {
+                slot12.attr('src', pathImgItems + items[personaje.inventario.slot12].imagen)
             }
 
-            if (items[personaje.inventario.manoizq ] !== undefined) {
-                manoizq.attr('src', pathImgItems + items[personaje.inventario.manoizq ].imagen)
+            if (items[personaje.inventario.manoizq] !== undefined) {
+                manoizq.attr('src', pathImgItems + items[personaje.inventario.manoizq].imagen)
             }
-            if (items[personaje.inventario.cabeza ] !== undefined) {
-                cabeza.attr('src', pathImgItems + items[personaje.inventario.cabeza ].imagen)
+            if (items[personaje.inventario.cabeza] !== undefined) {
+                cabeza.attr('src', pathImgItems + items[personaje.inventario.cabeza].imagen)
             }
-            if (items[personaje.inventario.torso ] !== undefined) {
-                torso.attr('src', pathImgItems + items[personaje.inventario.torso ].imagen)
+            if (items[personaje.inventario.torso] !== undefined) {
+                torso.attr('src', pathImgItems + items[personaje.inventario.torso].imagen)
             }
-            if (items[personaje.inventario.manoder ] !== undefined) {
-                manoder.attr('src', pathImgItems + items[personaje.inventario.manoder ].imagen)
+            if (items[personaje.inventario.manoder] !== undefined) {
+                manoder.attr('src', pathImgItems + items[personaje.inventario.manoder].imagen)
             }
 
             var htmlSala = '<h2 class="text-warning">Mapa <small>' + sala + '</small></h3>';
 
             nombreSala.html(htmlSala);
             let itemsEnMapa = [];
-            for (let i = 0; i < maps[personaje.mapid ].itemsid.length; i++) {
-                itemsEnMapa.push(items[maps[personaje.mapid ].itemsid[i] ].nombre + `[ ${i + 1} ]`)
+            for (let i = 0; i < maps[personaje.mapid].itemsid.length; i++) {
+                itemsEnMapa.push(items[maps[personaje.mapid].itemsid[i]].nombre + `[ ${i + 1} ]`)
 
             }
 
@@ -114,8 +114,8 @@ const interface = async () => {
 
 
 
-           
-            let criaturasEnMapa = maps[personaje.mapid ].criaturasid.length
+
+            let criaturasEnMapa = maps[personaje.mapid].criaturasid.length
 
 
             if (criaturasEnMapa === 1) {
@@ -126,8 +126,8 @@ const interface = async () => {
             } else if (criaturasEnMapa >= 3) {
                 criaturasEnMapa = "hay muchas criaturas a tu alrededor"
             }
-            let textoArmado = `Te encuentras en ${description[mapas[personaje.mapid].descripcionid ].ubicacion} de ${description[mapas[personaje.mapid].descripcionid ].lugar}.
-         ${description[mapas[personaje.mapid].descripcionid ].detalles[0]}, ${personasEnMapa}
+            let textoArmado = `Te encuentras en ${description[mapas[personaje.mapid].descripcionid].ubicacion} de ${description[mapas[personaje.mapid].descripcionid].lugar}.
+         ${description[mapas[personaje.mapid].descripcionid].detalles[0]}, ${personasEnMapa}
         ${criaturasEnMapa} ${itemsEnMapa}
         `
 
@@ -207,7 +207,13 @@ const slot10 = $('#slot10')
 const slot11 = $('#slot11')
 const slot12 = $('#slot12')
 
+const contadorP = $('#contadorP')
+const accionP = $('#accionP')
+
 var divTexto = $('#divTexto');
+
+let accion = ""
+
 
 //funciones para renderizar usuarios
 
@@ -222,7 +228,7 @@ function renderAccion(mensaje) {
     let mensajeConsola = ""
     let ancho;
     let alto;
-    const actualizarPersonaje= (personajeID, mapaVa)=>{  
+    const actualizarPersonaje = (personajeID, mapaVa) => {
         socket.emit('actualizarPersonaje', personajeID, mapaVa, sala, personaje.nombre)
 
         var usuario = {
@@ -230,9 +236,14 @@ function renderAccion(mensaje) {
             sala: mapaVa,
             token
         }
-      
-       $("#divChatbox").empty();
-        
+
+        $("#divChatbox").empty();
+        clearInterval()
+        contador= 10
+        accion= ""
+        accionP.text(accion)
+        contadorP.text(contador)
+
         socket.emit('entrarChat', usuario, function (resp) {
             renderizarUsuarios(resp);
         });
@@ -246,33 +257,33 @@ function renderAccion(mensaje) {
 
         const mapaEsta = personaje.mapid
         let mapaVa;
-
+        accion = comando
 
         switch (comando) {
             case "/ir":
                 if (!resto) {
                     if (["derecha", "izquierda", "arriba", "abajo"].includes(comandoArg)) {
                         switch (comandoArg) {
-                            case "derecha":                           
-                                mapaVa = (mapaEsta +1)                                
-                                if ( !mapas[mapaVa] || (mapaVa-1)%ancho === 0) {
+                            case "derecha":
+                                mapaVa = (mapaEsta + 1)
+                                if (!mapas[mapaVa] || (mapaVa - 1) % ancho === 0) {
                                     mensajeConsola = "Ya no hay mapas hacia la derecha"
                                     console.log(mapas[mapaVa], mapas[mapaVa])
                                 } else {
                                     mensajeConsola = `Caminas hacia la derecha al mapa: ${mapaVa}`
-                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    console.log("mapava:", mapaVa, "mapaEsta: ", mapaEsta)
                                     actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
                             case "izquierda":
-                                mapaVa = (mapaEsta -1)
-                                if (!mapas[mapaVa -1] || mapaVa%ancho === 0) {
+                                mapaVa = (mapaEsta - 1)
+                                if (!mapas[mapaVa - 1] || mapaVa % ancho === 0) {
                                     mensajeConsola = "Ya no hay mapas hacia la izquierda"
-                                    console.log(mapas[mapaVa -1])
+                                    console.log(mapas[mapaVa - 1])
                                 } else {
                                     mensajeConsola = `Caminas hacia la izquierda al mapa: ${mapaVa}`
-                                 
-                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+
+                                    console.log("mapava:", mapaVa, "mapaEsta: ", mapaEsta)
                                     actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
@@ -280,11 +291,11 @@ function renderAccion(mensaje) {
                                 mapaVa = (mapaEsta - ancho)
                                 if (!mapas[mapaVa] || mapaVa < 1) {
                                     mensajeConsola = "Ya no hay mapas hacia arriba"
-                                    console.log(mapas[mapaVa -1])
+                                    console.log(mapas[mapaVa - 1])
                                 } else {
                                     mensajeConsola = "Caminas hacia arriba" + " al mapa: " + mapaVa
-                                   
-                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+
+                                    console.log("mapava:", mapaVa, "mapaEsta: ", mapaEsta)
                                     actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
@@ -292,19 +303,19 @@ function renderAccion(mensaje) {
                                 mapaVa = (mapaEsta + ancho)
                                 if (!mapas[mapaVa] || mapaVa > alto * ancho) {
                                     mensajeConsola = "Ya no hay mapas hacia abajo"
-                                    console.log(mapas[mapaVa -1])
+                                    console.log(mapas[mapaVa - 1])
                                 } else {
                                     mensajeConsola = "Caminas hacia abajo" + " al mapa: " + mapaVa
-                                    console.log("mapava:" ,mapaVa, "mapaEsta: ", mapaEsta)
+                                    console.log("mapava:", mapaVa, "mapaEsta: ", mapaEsta)
                                     actualizarPersonaje(personaje.uid, mapaVa)
                                 }
                                 break;
-                                default:
-                                    mensajeConsola = "cayo en el default de /ir"
-                                    break;
-                                }
-                                
-                        
+                            default:
+                                mensajeConsola = "cayo en el default de /ir"
+                                break;
+                        }
+
+
                     } else if (!comandoArg) {
                         mensajeConsola = "falta direccion a donde ir"
                     } else {
@@ -320,12 +331,12 @@ function renderAccion(mensaje) {
             default:
                 break;
         }
-     
+
 
         var html = ''
         html += '<p class="accion">' + mensajeConsola + '</p>';
         divTexto.html(html)
-      
+
     })
 }
 
@@ -459,12 +470,12 @@ divUsuarios.on('click', 'a', function () {
 })
 
 let abierto = false
-mapaMundo.on("click",()=>{
-    if(abierto){
+mapaMundo.on("click", () => {
+    if (abierto) {
         cabecera.height(0)
         $('html').scrollTop(0)
         abierto = false
-    }else {
+    } else {
         cabecera.height('100%')
         abierto = true
     }

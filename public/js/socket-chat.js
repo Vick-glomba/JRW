@@ -33,8 +33,31 @@ const verificar = async (token) => {
         })
 
 }
+let contador = 10
+const contadorPj = () =>{
 
+    setTimeout(() => {
 
+        setInterval(() => {
+            if(contador === 11){
+                contador= 10
+            }else if(contador >= 0 && contador < 11){
+                accionP.text("")
+                contadorP.text(contador)
+                contador -= 1
+            }else{
+                accionP.text(accion?accion.slice(1):"Nada..")
+                contadorP.text("")
+                contador = 11
+                accion = ""
+                
+                
+            }
+            
+        }, 1000);
+
+    }, 2000);
+    }
 
 socket.on('connect', async function () {
     console.log('Conectado al servidor');
@@ -121,6 +144,9 @@ socket.on('connect', async function () {
             inp10.val(personaje.precomandos[9])
             inp11.val(personaje.precomandos[10])
             inp12.val(personaje.precomandos[11])
+
+            contadorPj();
+
             socket.emit('entrarChat', usuario, function (resp) {
                 renderizarUsuarios(resp);
             });
